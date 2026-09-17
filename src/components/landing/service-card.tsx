@@ -1,4 +1,4 @@
-import { ArrowRight, Clock3 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from '@/lib/app-link';
 
 import type { Service } from '@/types';
@@ -18,36 +18,38 @@ export function ServiceCard({ service, actionLabel, featuredLabel, locale }: Ser
   }).format(service.price);
 
   return (
-    <article className="group flex min-h-full flex-col border border-[var(--border-subtle)] bg-[var(--surface)] p-[var(--space-5)] transition-colors duration-[var(--motion-level-1-duration)] hover:border-[var(--border-strong)] md:p-[var(--space-6)]">
-      <div className="flex min-h-7 items-center justify-between gap-[var(--space-3)]">
-        <p className="type-eyebrow text-[var(--text-muted)]">{service.category}</p>
-        {service.featured ? (
-          <span className="type-eyebrow border border-[var(--brand-accent)] px-2 py-1 text-[var(--brand-accent)]">
-            {featuredLabel}
-          </span>
-        ) : null}
-      </div>
-      <h3 className="type-h3 mt-[var(--space-5)]">{service.name}</h3>
-      <p className="type-body mt-[var(--space-3)] flex-1 text-[var(--text-secondary)]">
-        {service.shortDescription}
-      </p>
-      <div className="mt-[var(--space-6)] flex items-end justify-between gap-[var(--space-4)] border-t border-[var(--border-subtle)] pt-[var(--space-4)]">
-        <div>
-          <p className="type-h3 text-[var(--brand-accent)]">{price}</p>
-          <p className="type-small mt-1 flex items-center gap-2 text-[var(--text-muted)]">
-            <Clock3 aria-hidden="true" className="size-4" />
-            {service.durationMinutes} min
-          </p>
+    <article className="group relative flex min-h-full flex-col justify-between gap-[var(--space-6)] bg-[var(--background-primary)] px-[var(--space-5)] py-[var(--space-6)] transition-colors duration-[var(--motion-level-1-duration)] hover:bg-[var(--surface)] md:px-[var(--space-6)] md:py-[var(--space-7)]">
+      <div>
+        <div className="flex items-baseline justify-between gap-[var(--space-4)]">
+          <h3 className="type-h3 max-w-[16ch]">{service.name}</h3>
+          <p className="type-h3 shrink-0 tabular-nums text-[var(--brand-accent)]">{price}</p>
         </div>
-        <Link
-          href={`/booking?service=${service.slug}`}
-          aria-label={`${actionLabel}: ${service.name}`}
-          className="type-button inline-flex min-h-12 items-center gap-2 text-right text-[var(--text-primary)] underline decoration-[var(--brand-accent)] underline-offset-4"
-        >
-          <span className="hidden sm:inline">{actionLabel}</span>
-          <ArrowRight aria-hidden="true" className="size-4 shrink-0 transition-transform group-hover:translate-x-1" />
-        </Link>
+
+        <div className="mt-[var(--space-3)] flex flex-wrap items-center gap-x-[var(--space-3)] gap-y-1">
+          <span className="type-eyebrow text-[var(--text-muted)]">{service.category}</span>
+          <span aria-hidden="true" className="h-3 w-px bg-[var(--border-subtle)]" />
+          <span className="type-eyebrow text-[var(--text-muted)]">{service.durationMinutes} min</span>
+          {service.featured ? (
+            <>
+              <span aria-hidden="true" className="h-3 w-px bg-[var(--border-subtle)]" />
+              <span className="type-eyebrow text-[var(--brand-accent)]">{featuredLabel}</span>
+            </>
+          ) : null}
+        </div>
+
+        <p className="type-body mt-[var(--space-4)] max-w-[42ch] text-[var(--text-secondary)]">
+          {service.shortDescription}
+        </p>
       </div>
+
+      <Link
+        href={`/booking?service=${service.slug}`}
+        aria-label={`${actionLabel}: ${service.name}`}
+        className="type-button inline-flex min-h-11 items-center gap-2 self-start text-[var(--text-secondary)] transition-colors group-hover:text-[var(--brand-accent)]"
+      >
+        {actionLabel}
+        <ArrowRight aria-hidden="true" className="size-4 shrink-0 transition-transform group-hover:translate-x-1" />
+      </Link>
     </article>
   );
 }

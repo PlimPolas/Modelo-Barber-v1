@@ -41,14 +41,17 @@ function Hero({ asset }: { asset: MediaAsset }) {
           imageClassName="h-full w-full"
         />
       </div>
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[var(--container-wide)] items-end px-[var(--page-gutter)] pb-[var(--space-8)] pt-32 md:pb-[var(--space-10)]">
-        <div className="max-w-[48rem]">
-          <p className="type-eyebrow text-[var(--brand-accent)]">{content.eyebrow}</p>
-          <h1 className="type-display-xl mt-[var(--space-3)] max-w-[11ch]">{content.title}</h1>
-          <p className="type-body-large mt-[var(--space-5)] max-w-[36rem] text-[var(--text-secondary)]">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[var(--container-wide)] items-end px-[var(--page-gutter)] pb-[var(--space-9)] pt-[calc(var(--landing-header-height)+var(--space-8))] md:pb-[var(--space-11)]">
+        <div className="max-w-[46rem]">
+          <div className="flex items-center gap-[var(--space-4)]">
+            <span aria-hidden="true" className="hero-rule" />
+            <p className="type-eyebrow text-[var(--brand-accent)]">{content.eyebrow}</p>
+          </div>
+          <h1 className="type-display-xl mt-[var(--space-5)] max-w-[10ch]">{content.title}</h1>
+          <p className="type-body-large mt-[var(--space-6)] max-w-[34rem] text-[var(--text-secondary)]">
             {content.description}
           </p>
-          <div className="mt-[var(--space-6)] flex flex-col gap-[var(--space-3)] sm:flex-row">
+          <div className="mt-[var(--space-7)] flex flex-col gap-[var(--space-3)] sm:flex-row sm:items-center">
             <ActionLink href="/booking" size="large">
               {content.primaryAction}
               <ArrowRight aria-hidden="true" />
@@ -59,7 +62,7 @@ function Hero({ asset }: { asset: MediaAsset }) {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-[var(--space-6)] right-[var(--page-gutter)] z-10 hidden items-center gap-3 lg:flex">
+      <div className="absolute bottom-[var(--space-9)] right-[var(--page-gutter)] z-10 hidden items-center gap-3 lg:flex">
         <span className="h-px w-12 bg-[var(--brand-accent)]" />
         <span className="type-eyebrow text-[var(--text-secondary)]">{content.scrollHint}</span>
       </div>
@@ -86,27 +89,27 @@ export function LandingPage() {
       <PageContainer>
         <Hero asset={getMedia(landingContent.hero.mediaId)} />
 
-        <section aria-label="Indicadores" className="border-y border-[var(--border-subtle)] bg-[var(--background-secondary)]">
-          <div className="mx-auto grid max-w-[var(--container-content)] grid-cols-2 px-[var(--page-gutter)] sm:grid-cols-4">
+        <section aria-label="Indicadores" className="border-b border-[var(--border-subtle)] bg-[var(--background-primary)]">
+          <div className="mx-auto grid max-w-[var(--container-wide)] grid-cols-2 gap-y-[var(--space-6)] px-[var(--page-gutter)] py-[var(--space-7)] sm:grid-cols-4 md:py-[var(--space-8)]">
             {landingContent.socialProof.map((metric) => (
               <div
                 key={metric.label}
-                className={`${metric.compact ? '' : 'hidden sm:block'} border-r border-[var(--border-subtle)] px-[var(--space-4)] py-[var(--space-5)] first:border-l md:px-[var(--space-6)]`}
+                className={`${metric.compact ? '' : 'hidden sm:block'} border-l border-[var(--border-subtle)] px-[var(--space-4)] md:px-[var(--space-6)]`}
               >
-                <p className="type-h3 text-[var(--brand-accent)]">{metric.value}</p>
-                <p className="type-small mt-1 text-[var(--text-muted)]">{metric.label}</p>
+                <p className="type-h3 text-[var(--text-primary)]">{metric.value}</p>
+                <p className="type-small mt-[var(--space-2)] text-[var(--text-muted)]">{metric.label}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <SectionContainer id="servicos" size="content" spacing="editorial" className="landing-anchor">
+        <SectionContainer id="servicos" size="wide" spacing="editorial" className="landing-anchor">
           <SectionHeader
             eyebrow={landingContent.services.eyebrow}
             title={landingContent.services.title}
             description={landingContent.services.description}
           />
-          <div className="mt-[var(--space-8)] grid gap-[var(--space-4)] md:grid-cols-2">
+          <div className="mt-[var(--space-8)] grid gap-px border-y border-[var(--border-subtle)] bg-[var(--border-subtle)] md:grid-cols-2">
             {activeServices.map((service) => (
               <ServiceCard
                 key={service.id}
@@ -154,7 +157,7 @@ export function LandingPage() {
         <TeamSection barbers={activeBarbers} resolveMedia={getMedia} />
 
         <section id="galeria" className="landing-anchor overflow-hidden border-y border-[var(--border-subtle)] bg-[var(--background-secondary)] py-[var(--space-9)] md:py-[var(--space-11)]">
-          <div className="mx-auto mb-[var(--space-8)] max-w-[var(--container-content)] px-[var(--page-gutter)]">
+          <div className="mx-auto mb-[var(--space-8)] max-w-[var(--container-wide)] px-[var(--page-gutter)]">
             <SectionHeader
               eyebrow={landingContent.gallery.eyebrow}
               title={landingContent.gallery.title}
@@ -166,9 +169,9 @@ export function LandingPage() {
 
         <ReviewsSection reviews={featuredReviews} locale={brand.defaultLocale} />
 
-        <section className="border-y border-[var(--brand-accent)] bg-[var(--brand-accent-soft)]">
-          <SectionContainer size="content" spacing="default">
-            <div className="grid gap-[var(--space-8)] lg:grid-cols-[minmax(0,1fr)_minmax(24rem,.8fr)] lg:items-end">
+        <section className="border-y border-[var(--border-subtle)] bg-[var(--background-secondary)]">
+          <SectionContainer size="wide" spacing="default">
+            <div className="grid gap-[var(--space-8)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,.9fr)] lg:items-end lg:gap-[var(--space-10)]">
               <SectionHeader
                 eyebrow={landingContent.booking.eyebrow}
                 title={landingContent.booking.title}
@@ -185,11 +188,14 @@ export function LandingPage() {
                   <Check aria-hidden="true" className="size-4 text-[var(--brand-accent)]" />
                   {landingContent.booking.benefit}
                 </p>
-                <ol className="mt-[var(--space-5)] grid grid-cols-2 gap-px border border-[var(--border-subtle)] bg-[var(--border-subtle)] sm:grid-cols-4">
+                <ol className="mt-[var(--space-5)] border-t border-[var(--border-subtle)]">
                   {landingContent.booking.steps.map((step, index) => (
-                    <li key={step} className="bg-[var(--background-secondary)] p-[var(--space-4)]">
+                    <li
+                      key={step}
+                      className="flex items-baseline gap-[var(--space-4)] border-b border-[var(--border-subtle)] py-[var(--space-4)]"
+                    >
                       <span className="type-eyebrow text-[var(--brand-accent)]">0{index + 1}</span>
-                      <p className="type-label mt-2">{step}</p>
+                      <p className="type-label">{step}</p>
                     </li>
                   ))}
                 </ol>
@@ -201,20 +207,20 @@ export function LandingPage() {
         <LocationSection location={location} />
 
         <section className="bg-[var(--surface-inverse)] text-[var(--text-inverse)]">
-          <SectionContainer size="content" spacing="default">
-            <div className="grid gap-[var(--space-7)] lg:grid-cols-[1fr_auto] lg:items-end">
+          <SectionContainer size="wide" spacing="editorial">
+            <div className="grid gap-[var(--space-8)] lg:grid-cols-[1fr_auto] lg:items-end lg:gap-[var(--space-10)]">
               <div>
                 <p className="type-eyebrow text-[var(--brand-accent-active)]">{landingContent.finalCta.eyebrow}</p>
-                <h2 className="type-h1 mt-[var(--space-3)] max-w-[12ch]">{landingContent.finalCta.title}</h2>
-                <p className="type-body-large mt-[var(--space-4)] max-w-xl text-black/65">{landingContent.finalCta.description}</p>
+                <h2 className="type-h1 mt-[var(--space-5)] max-w-[11ch]">{landingContent.finalCta.title}</h2>
+                <p className="type-body-large mt-[var(--space-5)] max-w-[38ch] text-[var(--text-inverse)]/65">{landingContent.finalCta.description}</p>
               </div>
-              <div className="flex flex-col gap-[var(--space-3)] sm:flex-row lg:flex-col">
-                <Link href="/booking" className="type-button inline-flex min-h-14 items-center justify-center gap-2 bg-[var(--brand-accent-active)] px-[var(--space-6)] text-white">
+              <div className="flex flex-col gap-[var(--space-3)] sm:flex-row lg:flex-col lg:items-stretch">
+                <Link href="/booking" className="type-button inline-flex min-h-14 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-[var(--brand-accent-active)] px-[var(--space-7)] text-[var(--surface-inverse)]">
                   {landingContent.finalCta.actionLabel}
                   <ArrowRight aria-hidden="true" className="size-4" />
                 </Link>
                 {location.whatsapp ? (
-                  <a href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer" className="type-button inline-flex min-h-14 items-center justify-center gap-2 border border-black/30 px-[var(--space-6)]">
+                  <a href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer" className="type-button inline-flex min-h-14 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--text-inverse)]/25 px-[var(--space-7)]">
                     {landingContent.finalCta.alternativeLabel}
                     <span className="sr-only"> (abre em nova aba)</span>
                   </a>

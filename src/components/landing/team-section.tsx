@@ -17,7 +17,7 @@ export function TeamSection({ barbers, resolveMedia }: TeamSectionProps) {
         title={landingContent.team.title}
         description={landingContent.team.description}
       />
-      <div className="mt-[var(--space-8)] grid gap-x-[var(--space-4)] gap-y-[var(--space-8)] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[var(--space-5)]">
+      <div className="mt-[var(--space-8)] grid gap-x-[var(--space-5)] gap-y-[var(--space-9)] sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-[var(--space-6)]">
         {barbers.map((barber) => (
           <BarberCard
             key={barber.id}
