@@ -70,9 +70,10 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
         </nav>
 
         <div className="flex items-center gap-[var(--space-2)]">
-          <ActionLink href="/booking" className="hidden sm:inline-flex">
-            {bookingLabel}
-            <ArrowRight aria-hidden="true" />
+          <ActionLink href="/booking" aria-label={bookingLabel} className="px-[var(--space-4)] sm:px-[var(--space-5)]">
+            <span className="sm:hidden">Agendar</span>
+            <span className="hidden sm:inline">{bookingLabel}</span>
+            <ArrowRight aria-hidden="true" className="hidden sm:block" />
           </ActionLink>
 
           <Sheet>
