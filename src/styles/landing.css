@@ -39,9 +39,9 @@
   margin-inline: calc(50% - 50vw);
 
   /* item height, gap and pace per breakpoint */
-  --gallery-height: 13.5rem;
+  --gallery-height: 9.5rem;
   --gallery-gap: 2px;
-  --gallery-pace: 9s; /* seconds per frame ≈ 20px/s */
+  --gallery-pace: 7.5s; /* seconds per frame ≈ 20px/s */
 }
 
 .gallery-viewport {
@@ -167,15 +167,15 @@
   }
 
   .gallery-bleed {
-    --gallery-height: 17rem;
-    --gallery-pace: 11s;
+    --gallery-height: 11.5rem;
+    --gallery-pace: 8s;
   }
 }
 
 @media (min-width: 64rem) {
   .gallery-bleed {
-    --gallery-height: 21rem;
-    --gallery-pace: 14s;
+    --gallery-height: 13.5rem;
+    --gallery-pace: 9s;
   }
 }
 
