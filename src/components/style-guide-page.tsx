@@ -84,7 +84,7 @@ function SpecSection({
 }
 
 export default function FoundationStyleGuide() {
-  const previewMedia = media[0];
+  const previewMedia = media[0]!;
 
   return (
     <PageContainer>

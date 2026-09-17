@@ -21,11 +21,12 @@ export function ResponsiveMedia({
   style,
   ...props
 }: ResponsiveMediaProps) {
-  const variantsByMime = asset.variants?.reduce<Record<string, string[]>>((groups, variant) => {
-    groups[variant.mimeType] ??= [];
-    groups[variant.mimeType].push(`${variant.src} ${variant.width}w`);
-    return groups;
-  }, {});
+  const variantsByMime: Record<string, string[]> = {};
+  for (const variant of asset.variants ?? []) {
+    const current = variantsByMime[variant.mimeType] ?? [];
+    current.push(`${variant.src} ${variant.width}w`);
+    variantsByMime[variant.mimeType] = current;
+  }
 
   return (
     <picture className={cn('block overflow-hidden', className)} style={style}>

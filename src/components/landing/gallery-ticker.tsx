@@ -58,7 +58,7 @@ export function GalleryTicker({ items }: GalleryTickerProps) {
     if (!root) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setPaused(!entry.isIntersecting),
+      ([entry]) => setPaused(!entry?.isIntersecting),
       { rootMargin: '160px 0px', threshold: 0.05 },
     );
     observer.observe(root);

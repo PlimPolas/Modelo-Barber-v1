@@ -10,8 +10,8 @@ import {
 interface FieldProps {
   id: string;
   label: string;
-  description?: string;
-  error?: string;
+  description?: string | undefined;
+  error?: string | undefined;
   required?: boolean;
   children: ReactNode;
 }

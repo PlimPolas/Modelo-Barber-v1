@@ -68,7 +68,7 @@ function Hero({ asset }: { asset: MediaAsset }) {
 }
 
 export function LandingPage() {
-  const location = locations.find((item) => item.active) ?? locations[0];
+  const location = locations.find((item) => item.active) ?? locations[0]!;
   const activeServices = services.filter((item) => item.active).sort((a, b) => a.sortOrder - b.sortOrder);
   const activeBarbers = barbers.filter((item) => item.active).sort((a, b) => a.sortOrder - b.sortOrder);
   const featuredReviews = reviews.filter((item) => item.featured);
