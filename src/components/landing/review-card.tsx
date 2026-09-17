@@ -33,12 +33,14 @@ export function ReviewCard({ review, locale, variant = 'default' }: ReviewCardPr
 
   if (variant === 'featured') {
     return (
-      <article className="flex h-full flex-col justify-between gap-[var(--space-6)] bg-[var(--surface)] p-[var(--space-6)] md:p-[var(--space-8)]">
+      <article className="flex h-full flex-col justify-between gap-[var(--space-5)] bg-[var(--surface)] p-[var(--space-5)] md:gap-[var(--space-6)] md:p-[var(--space-8)]">
         <div>
           <span aria-hidden="true" className="quote-mark block">
             “
           </span>
-          <blockquote className="type-h3 mt-[var(--space-3)] max-w-[24ch]">{review.excerpt}</blockquote>
+          <blockquote className="type-body-large mt-[var(--space-3)] max-w-[34ch] text-[var(--text-primary)] md:type-h3 md:max-w-[24ch]">
+            {review.excerpt}
+          </blockquote>
         </div>
         <footer>
           <Rating rating={review.rating} />

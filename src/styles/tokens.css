@@ -14,6 +14,10 @@
   --border-subtle: #343936;
   --border-strong: #59605b;
 
+  /* PONTO ÚNICO DE PERSONALIZAÇÃO DA COR DE DESTAQUE.
+     Troque os quatro valores abaixo para adaptar a marca; nenhum componente
+     usa cor fixa. Mantenha `accentColor` em src/data/brand.ts igual ao valor
+     de --brand-accent (ele é apenas metadado da marca, não pinta a interface). */
   --brand-accent: #d0a15e;
   --brand-accent-hover: #e0b777;
   --brand-accent-active: #b98645;
