@@ -12,7 +12,7 @@ interface FieldProps {
   label: string;
   description?: string | undefined;
   error?: string | undefined;
-  required?: boolean;
+  required?: boolean | undefined;
   children: ReactNode;
 }
 
