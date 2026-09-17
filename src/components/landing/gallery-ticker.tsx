@@ -29,7 +29,10 @@ export function GalleryItem({ item, sizes, fluid = false }: GalleryItemProps) {
 function fillSequence(items: MediaAsset[]) {
   if (items.length === 0) return items;
   const repeats = Math.ceil(MIN_ITEMS_PER_HALF / items.length);
-  return Array.from({ length: repeats }, () => items).flat();
+  // rotate each repeat so neighbouring frames never show the same pair twice
+  return Array.from({ length: repeats }, (_, block) =>
+    items.map((_, index) => items[(index + block) % items.length]!),
+  ).flat();
 }
 
 function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?: boolean; paused: boolean }) {
