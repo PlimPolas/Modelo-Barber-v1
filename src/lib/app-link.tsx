@@ -12,8 +12,10 @@ type AppLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
  * and a plain anchor for hash links and external URLs.
  */
 export function Link({ href, children, ...rest }: AppLinkProps) {
+  const [rawPathname = href, query = ""] = href.split("?");
+  const pathname = rawPathname || "/";
+
   if (href.startsWith("/") && !href.startsWith("//")) {
-    const [pathname, query = ""] = href.split("?");
     const search = query
       ? (Object.fromEntries(new URLSearchParams(query)) as Record<string, string>)
       : undefined;
