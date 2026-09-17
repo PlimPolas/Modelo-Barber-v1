@@ -33,35 +33,46 @@
 
 /* --- Gallery ---------------------------------------------------------- */
 
+.gallery-bleed {
+  width: 100vw;
+  max-width: 100vw;
+  margin-inline: calc(50% - 50vw);
+
+  /* item height, gap and pace per breakpoint */
+  --gallery-height: 9.5rem;
+  --gallery-gap: 2px;
+  --gallery-pace: 7.5s; /* seconds per frame ≈ 20px/s */
+}
+
 .gallery-viewport {
+  width: 100%;
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
 .gallery-track {
   display: flex;
   width: max-content;
-  gap: var(--space-3);
+  gap: var(--gallery-gap);
   will-change: transform;
-  animation: gallery-forward 96s linear infinite;
+  animation: gallery-forward calc(var(--gallery-count, 10) * var(--gallery-pace)) linear infinite;
+  animation-play-state: running;
 }
 
 .gallery-track[data-direction='reverse'] {
   animation-name: gallery-reverse;
-  animation-duration: 112s;
 }
 
 .gallery-track[data-paused='true'] {
   animation-play-state: paused;
 }
 
-.gallery-item {
-  width: clamp(11rem, 26vw, 20rem);
-  flex: 0 0 auto;
+.gallery-track:hover {
+  animation-duration: calc(var(--gallery-count, 10) * var(--gallery-pace) * 2.5);
 }
 
-.gallery-item-tall {
-  width: clamp(9rem, 20vw, 15rem);
+.gallery-item {
+  width: calc(var(--gallery-height) * 0.8);
+  flex: 0 0 auto;
 }
 
 .gallery-fallback {
@@ -125,17 +136,28 @@
 }
 
 @keyframes gallery-forward {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translateX(calc(-50% - (var(--space-3) / 2)));
+    transform: translate3d(
+      calc(-1 * var(--gallery-count, 10) * (var(--gallery-height) * 0.8 + var(--gallery-gap))),
+      0,
+      0
+    );
   }
 }
 
 @keyframes gallery-reverse {
   from {
-    transform: translateX(calc(-50% - (var(--space-3) / 2)));
+    transform: translate3d(
+      calc(-1 * var(--gallery-count, 10) * (var(--gallery-height) * 0.8 + var(--gallery-gap))),
+      0,
+      0
+    );
   }
   to {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -144,8 +166,16 @@
     --landing-header-height: 4.5rem;
   }
 
-  .gallery-track {
-    gap: var(--space-4);
+  .gallery-bleed {
+    --gallery-height: 11.5rem;
+    --gallery-pace: 8s;
+  }
+}
+
+@media (min-width: 64rem) {
+  .gallery-bleed {
+    --gallery-height: 13.5rem;
+    --gallery-pace: 9s;
   }
 }
 
