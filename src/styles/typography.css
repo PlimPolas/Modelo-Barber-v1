@@ -1,0 +1,81 @@
+.type-display-xl,
+.type-h1,
+.type-h2,
+.type-h3 {
+  margin: 0;
+  font-family: var(--font-barlow-condensed), Impact, sans-serif;
+  text-wrap: balance;
+}
+
+.type-display-xl {
+  font-size: clamp(4rem, 11vw, 8rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.type-h1 {
+  font-size: clamp(3.25rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.015em;
+}
+
+.type-h2 {
+  font-size: clamp(2.625rem, 6vw, 4.25rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+.type-h3 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+}
+
+.type-body-large {
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.type-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.type-small {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+}
+
+.type-label,
+.type-eyebrow,
+.type-button {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.type-label {
+  font-size: 0.875rem;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+}
+
+.type-button {
+  font-size: 0.875rem;
+  line-height: 1;
+  letter-spacing: 0.025em;
+}
+
+.type-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+}

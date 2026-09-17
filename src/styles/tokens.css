@@ -1,0 +1,98 @@
+:root {
+  --background-primary: #0b0c0c;
+  --background-secondary: #111313;
+  --surface: #171a19;
+  --surface-elevated: #202421;
+  --surface-inverse: #f2efe7;
+
+  --text-primary: #f6f3ec;
+  --text-secondary: #b7b4ac;
+  --text-muted: #8e8c85;
+  --text-inverse: #151714;
+  --text-on-accent: #15120d;
+
+  --border-subtle: #343936;
+  --border-strong: #59605b;
+
+  --brand-accent: #d0a15e;
+  --brand-accent-hover: #e0b777;
+  --brand-accent-active: #b98645;
+  --brand-accent-soft: rgb(208 161 94 / 14%);
+  --focus-ring: #f2c879;
+
+  --status-success: #48b982;
+  --status-warning: #dca447;
+  --status-error: #de6a62;
+  --status-info: #6fa8d8;
+  --disabled-surface: #242725;
+  --disabled-text: #747873;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 5rem;
+  --space-10: 6rem;
+  --space-11: 8rem;
+  --space-12: 10rem;
+
+  --container-small: 47.5rem;
+  --container-content: 75rem;
+  --container-wide: 90rem;
+  --container-full: 100%;
+
+  --page-gutter: 1.25rem;
+  --grid-columns: 4;
+  --grid-gap: 1rem;
+
+  --radius-control: 0.375rem;
+  --radius-surface: 0.5rem;
+  --control-height: 3rem;
+
+  --background: var(--background-primary);
+  --foreground: var(--text-primary);
+  --card: var(--surface);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--brand-accent);
+  --primary-foreground: var(--text-on-accent);
+  --secondary: var(--surface-elevated);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--surface-elevated);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--brand-accent-soft);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--status-error);
+  --border: var(--border-subtle);
+  --input: var(--border-strong);
+  --ring: var(--focus-ring);
+  --radius: var(--radius-surface);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-gutter: 2rem;
+    --grid-columns: 8;
+    --grid-gap: 1.25rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --page-gutter: 2.5rem;
+    --grid-columns: 12;
+    --grid-gap: 1.5rem;
+  }
+}
+
+@media (min-width: 90rem) {
+  :root {
+    --page-gutter: 3rem;
+    --grid-gap: 2rem;
+  }
+}

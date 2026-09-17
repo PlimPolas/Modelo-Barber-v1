@@ -1,0 +1,15 @@
+.focal-image {
+  object-position: var(--focal-mobile);
+}
+
+@media (min-width: 48rem) {
+  .focal-image {
+    object-position: var(--focal-tablet);
+  }
+}
+
+@media (min-width: 64rem) {
+  .focal-image {
+    object-position: var(--focal-desktop);
+  }
+}

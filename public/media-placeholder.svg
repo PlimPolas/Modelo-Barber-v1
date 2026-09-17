@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title description">
+  <title id="title">Composição abstrata em bronze e grafite</title>
+  <desc id="description">Formas geométricas demonstram enquadramento, sobreposição e ponto focal.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111313"/>
+      <stop offset="1" stop-color="#24201a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="45%" r="50%">
+      <stop offset="0" stop-color="#e0b777" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#d0a15e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#background)"/>
+  <circle cx="1110" cy="460" r="430" fill="url(#glow)"/>
+  <path d="M190 810 610 150h230L420 810Z" fill="#f6f3ec" fill-opacity=".06"/>
+  <path d="M770 860 1190 200h220L990 860Z" fill="#d0a15e" fill-opacity=".22"/>
+  <g fill="none" stroke="#f6f3ec" stroke-opacity=".13">
+    <path d="M0 180h1600M0 500h1600M0 820h1600"/>
+    <path d="M320 0v1000M800 0v1000M1280 0v1000"/>
+  </g>
+</svg>
