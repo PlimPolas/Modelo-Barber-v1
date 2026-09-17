@@ -31,7 +31,7 @@ function BookingPage() {
     <PageContainer className="grid place-items-center">
       <SectionContainer size="small" spacing="editorial">
         <Link
-          to="/"
+          href="/"
           className="type-small inline-flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]"
         >
           <ArrowLeft aria-hidden="true" className="size-4" /> Voltar para {brand.name}
