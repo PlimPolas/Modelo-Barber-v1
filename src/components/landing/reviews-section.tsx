@@ -10,6 +10,8 @@ interface ReviewsSectionProps {
 }
 
 export function ReviewsSection({ reviews, locale }: ReviewsSectionProps) {
+  const [featured, ...rest] = reviews;
+
   return (
     <SectionContainer id="avaliacoes" size="wide" spacing="editorial" className="landing-anchor">
       <SectionHeader
@@ -17,12 +19,17 @@ export function ReviewsSection({ reviews, locale }: ReviewsSectionProps) {
         title={landingContent.reviews.title}
         description={landingContent.reviews.description}
       />
-      <div className="review-scroller -mx-[var(--page-gutter)] mt-[var(--space-8)] flex snap-x snap-mandatory gap-[var(--space-4)] overflow-x-auto px-[var(--page-gutter)] pb-[var(--space-4)] lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 xl:grid-cols-4">
-        {reviews.map((review) => (
-          <div key={review.id} className="w-[82vw] max-w-[22rem] shrink-0 snap-start lg:w-auto lg:max-w-none">
-            <ReviewCard review={review} locale={locale} />
+
+      <div className="mt-[var(--space-8)] grid gap-[var(--space-6)] lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-[var(--space-8)]">
+        {featured ? <ReviewCard review={featured} locale={locale} variant="featured" /> : null}
+
+        {rest.length ? (
+          <div className="grid gap-[var(--space-6)] sm:grid-cols-2 lg:gap-x-[var(--space-8)]">
+            {rest.map((review) => (
+              <ReviewCard key={review.id} review={review} locale={locale} />
+            ))}
           </div>
-        ))}
+        ) : null}
       </div>
     </SectionContainer>
   );
