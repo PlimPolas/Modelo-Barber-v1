@@ -136,17 +136,28 @@
 }
 
 @keyframes gallery-forward {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translateX(calc(-50% - (var(--space-3) / 2)));
+    transform: translate3d(
+      calc(-1 * var(--gallery-count, 10) * (var(--gallery-height) * 0.8 + var(--gallery-gap))),
+      0,
+      0
+    );
   }
 }
 
 @keyframes gallery-reverse {
   from {
-    transform: translateX(calc(-50% - (var(--space-3) / 2)));
+    transform: translate3d(
+      calc(-1 * var(--gallery-count, 10) * (var(--gallery-height) * 0.8 + var(--gallery-gap))),
+      0,
+      0
+    );
   }
   to {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -155,8 +166,16 @@
     --landing-header-height: 4.5rem;
   }
 
-  .gallery-track {
-    gap: var(--space-4);
+  .gallery-bleed {
+    --gallery-height: 17rem;
+    --gallery-pace: 11s;
+  }
+}
+
+@media (min-width: 64rem) {
+  .gallery-bleed {
+    --gallery-height: 21rem;
+    --gallery-pace: 14s;
   }
 }
 
