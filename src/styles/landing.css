@@ -75,10 +75,6 @@
   flex: 0 0 auto;
 }
 
-.gallery-fallback {
-  display: none;
-}
-
 /* --- Map placeholder -------------------------------------------------- */
 
 .map-surface {
@@ -180,11 +176,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gallery-motion {
-    display: none;
-  }
-
-  .gallery-fallback {
-    display: grid;
+  .gallery-track,
+  .gallery-track[data-direction='reverse'] {
+    animation: none;
+    transform: none;
   }
 }

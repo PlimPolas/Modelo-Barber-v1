@@ -1,0 +1,4 @@
+# Roadmap
+
+- [x] Substituir o mosaico alternativo da galeria pelas mesmas duas faixas horizontais.
+- [ ] Validar a galeria animada e com movimento reduzido em desktop e celular.

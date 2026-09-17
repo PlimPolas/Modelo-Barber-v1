@@ -12,15 +12,14 @@ interface GalleryTickerProps {
 interface GalleryItemProps {
   item: MediaAsset;
   sizes: string;
-  fluid?: boolean;
 }
 
 /** Minimum number of frames rendered per half-loop, so wide screens stay filled. */
 const MIN_ITEMS_PER_HALF = 10;
 
-export function GalleryItem({ item, sizes, fluid = false }: GalleryItemProps) {
+export function GalleryItem({ item, sizes }: GalleryItemProps) {
   return (
-    <div className={`${fluid ? '' : 'gallery-item'} overflow-hidden bg-[var(--surface)]`}>
+    <div className="gallery-item overflow-hidden bg-[var(--surface)]">
       <FocalImage asset={item} aspectRatio="4 / 5" sizes={sizes} />
     </div>
   );
@@ -60,16 +59,6 @@ function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?:
   );
 }
 
-export function GalleryGridFallback({ items }: GalleryTickerProps) {
-  return (
-    <div className="gallery-fallback mx-auto max-w-[var(--container-wide)] grid-cols-2 gap-[2px] px-[var(--page-gutter)] md:grid-cols-3">
-      {items.map((item) => (
-        <GalleryItem key={item.id} item={item} sizes="(min-width: 768px) 33vw, 50vw" fluid />
-      ))}
-    </div>
-  );
-}
-
 export function GalleryTicker({ items }: GalleryTickerProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(true);
@@ -94,7 +83,6 @@ export function GalleryTicker({ items }: GalleryTickerProps) {
         <GalleryRow items={firstRow} paused={paused} />
         <GalleryRow items={secondRow} reverse paused={paused} />
       </div>
-      <GalleryGridFallback items={items} />
     </div>
   );
 }
