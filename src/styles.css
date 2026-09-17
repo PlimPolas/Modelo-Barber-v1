@@ -9,6 +9,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --font-manrope: "Manrope";
+  --font-barlow-condensed: "Barlow Condensed";
+}
+
 /*
  * Barbershop design system ("Ateliê 47").
  * Semantic tokens live in ./styles/tokens.css; Tailwind color utilities
