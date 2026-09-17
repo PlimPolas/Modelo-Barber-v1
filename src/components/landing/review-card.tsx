@@ -38,7 +38,7 @@ export function ReviewCard({ review, locale, variant = 'default' }: ReviewCardPr
           <span aria-hidden="true" className="quote-mark block">
             “
           </span>
-          <blockquote className="type-body-large mt-[var(--space-3)] max-w-[34ch] text-[var(--text-primary)] md:type-h3 md:max-w-[24ch]">
+          <blockquote className="review-quote mt-[var(--space-3)] text-[var(--text-primary)]">
             {review.excerpt}
           </blockquote>
         </div>
