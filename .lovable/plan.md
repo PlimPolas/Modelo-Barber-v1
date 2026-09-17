@@ -1,26 +1,24 @@
-# Calibrar a animação das faixas da galeria com vídeo de referência
+# Calibrar a animação das faixas da galeria com o vídeo de referência
 
-## Objetivo
-Ajustar a animação das duas faixas fotográficas da galeria para reproduzir fielmente o vídeo de referência que o usuário vai enviar.
+## Diagnóstico (medido no vídeo enviado)
+- Faixa de cima move para a **esquerda**, faixa de baixo para a **direita** — isso já está correto no projeto.
+- **Velocidade da referência: ~14% da largura da tela por segundo (~200 px/s em desktop).**
+- **Velocidade atual do projeto: ~20 px/s — cerca de 10× mais lenta.** É por isso que a animação parece "não aplicada": ela existe, mas é lenta demais para perceber.
+- Fotos da referência: proporção ~4:5, altura ≈ 11–12% da largura da tela, espaçamento visível entre fotos (~6–7% da largura da foto; hoje o nosso é quase invisível, 2px).
 
-## Passos
+## Correção (apenas ajuste de valores, sem recriar nada)
 
-1. **Receber e analisar o vídeo**
-   - Extrair quadros do vídeo (ffmpeg) para medir: tamanho/proporção das fotos, espaçamento entre elas, altura das faixas, velocidade aparente e direção do movimento de cada faixa.
-   - Verificar comportamentos extras: pausa no hover, aceleração/desaceleração, emenda do loop.
+Em `src/styles/landing.css`:
+1. **Velocidade** — reduzir `--gallery-pace` para reproduzir ~12–14% da tela por segundo:
+   - mobile: de 7.5s para ~2.1s
+   - tablet: de 8s para ~1.4s
+   - desktop: de 9s para ~1.1s
+2. **Espaçamento** — `--gallery-gap` de 2px para 4px (mobile) / 6px (desktop), como na referência.
+3. Manter: direções opostas, loop sem emenda, desaceleração no hover, pausa fora da tela, composição estática com `prefers-reduced-motion`.
 
-2. **Calibrar a implementação existente** (sem recriar nada)
-   - `src/styles/landing.css`: ajustar `--gallery-height`, `--gallery-gap`, `--gallery-pace` e os keyframes `gallery-forward`/`gallery-reverse` para casar com o vídeo (desktop e mobile).
-   - `src/components/landing/gallery-ticker.tsx`: ajustes pontuais somente se o vídeo mostrar algo que o CSS atual não cobre (ex.: ritmo não linear, comportamento de hover diferente).
-
-3. **Validar**
-   - Desktop (1280/1600) e mobile (360/390/430): as duas faixas se movendo, em sentidos opostos, sem salto no loop, sem rolagem lateral.
-   - `prefers-reduced-motion`: faixas estáticas.
-   - Sem erros de console.
+## Validação
+- Playwright em 1280 e 390: medir o `transform` da faixa em dois instantes e confirmar deslocamento contínuo (~200 px/s no desktop), nos dois sentidos, sem rolagem lateral e sem erros de console.
+- Confirmar que com movimento reduzido as faixas ficam estáticas.
 
 ## O que NÃO muda
-- Estrutura da seção, dados da galeria (`src/data/landing.ts`) e demais seções da landing.
-- Sem novas bibliotecas de animação — apenas CSS e o ajuste fino do componente existente.
-
-## Bloqueio
-- Aguardando o envio do vídeo de referência pelo usuário.
+- Estrutura da seção, dados (`src/data/landing.ts`), componente `gallery-ticker.tsx` (só CSS) e demais seções.
