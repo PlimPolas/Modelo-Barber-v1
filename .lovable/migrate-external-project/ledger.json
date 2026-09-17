@@ -1,0 +1,13 @@
+{
+  "source": "github",
+  "source_url": "https://github.com/PlimPolas/barbershop-design-system-master",
+  "capabilities": [
+    {"capability": "code", "source": "github repo", "outcome": "migrate", "status": "pending", "next_action": "port all pages, components, styles, data to TanStack Start"},
+    {"capability": "static assets", "source": "public/images", "outcome": "preserve", "status": "pending", "next_action": "copy webp images + svgs"},
+    {"capability": "records", "source": "none", "outcome": "n/a", "status": "n/a", "next_action": "no database in source"},
+    {"capability": "auth", "source": "none", "outcome": "n/a", "status": "n/a", "next_action": "no auth in source"},
+    {"capability": "external providers", "source": "none", "outcome": "n/a", "status": "n/a", "next_action": "none detected"},
+    {"capability": "public endpoints", "source": "none", "outcome": "n/a", "status": "n/a", "next_action": "none detected"},
+    {"capability": "verification", "source": "n/a", "outcome": "verify", "status": "pending", "next_action": "build + playwright screenshots of /, /booking, /style-guide"}
+  ]
+}
