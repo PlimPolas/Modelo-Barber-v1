@@ -61,7 +61,7 @@ function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?:
 
 export function GalleryTicker({ items }: GalleryTickerProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(true);
+  const [paused, setPaused] = useState(false);
   const firstRow = items.filter((_, index) => index % 2 === 0);
   const secondRow = items.filter((_, index) => index % 2 === 1);
 
@@ -71,7 +71,7 @@ export function GalleryTicker({ items }: GalleryTickerProps) {
 
     const observer = new IntersectionObserver(
       ([entry]) => setPaused(!entry?.isIntersecting),
-      { rootMargin: '160px 0px', threshold: 0.01 },
+      { rootMargin: '100% 0px', threshold: 0 },
     );
     observer.observe(root);
     return () => observer.disconnect();
