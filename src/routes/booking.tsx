@@ -21,7 +21,6 @@ export const Route = createFileRoute("/booking")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-FLUSH
     ],
   }),
   component: BookingPage,

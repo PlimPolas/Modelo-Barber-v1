@@ -1,5 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/app-link';
 
 import { FocalImage } from '@/components/media';
 import type { Barber, MediaAsset } from '@/types';

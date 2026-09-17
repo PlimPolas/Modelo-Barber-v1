@@ -1,5 +1,5 @@
 import { ArrowRight, Clock3 } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/app-link';
 
 import type { Service } from '@/types';
 

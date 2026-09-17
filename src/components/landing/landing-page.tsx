@@ -5,7 +5,7 @@ import {
   MessageCircle,
   Phone,
 } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/app-link';
 
 import { ActionLink } from '@/components/actions';
 import { PageContainer, SectionContainer, SectionHeader } from '@/components/layout';
