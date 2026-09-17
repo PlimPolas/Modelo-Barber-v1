@@ -13,29 +13,43 @@ interface GalleryItemProps {
   item: MediaAsset;
   sizes: string;
   fluid?: boolean;
-  tall?: boolean;
 }
 
-export function GalleryItem({ item, sizes, fluid = false, tall = false }: GalleryItemProps) {
+/** Minimum number of frames rendered per half-loop, so wide screens stay filled. */
+const MIN_ITEMS_PER_HALF = 10;
+
+export function GalleryItem({ item, sizes, fluid = false }: GalleryItemProps) {
   return (
-    <div className={`${fluid ? '' : `gallery-item${tall ? ' gallery-item-tall' : ''}`} overflow-hidden bg-[var(--surface)]`}>
-      <FocalImage asset={item} aspectRatio={tall ? '3 / 4' : '4 / 3'} sizes={sizes} />
+    <div className={`${fluid ? '' : 'gallery-item'} overflow-hidden bg-[var(--surface)]`}>
+      <FocalImage asset={item} aspectRatio="4 / 5" sizes={sizes} />
     </div>
   );
 }
 
+function fillSequence(items: MediaAsset[]) {
+  if (items.length === 0) return items;
+  const repeats = Math.ceil(MIN_ITEMS_PER_HALF / items.length);
+  return Array.from({ length: repeats }, () => items).flat();
+}
+
 function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?: boolean; paused: boolean }) {
-  const repeated = [...items, ...items];
+  // Presentation-layer duplication only: the real gallery data is untouched.
+  const half = fillSequence(items);
+  const repeated = [...half, ...half];
 
   return (
     <div className="gallery-viewport" aria-hidden="true">
-      <div className="gallery-track" data-direction={reverse ? 'reverse' : 'forward'} data-paused={paused}>
+      <div
+        className="gallery-track"
+        data-direction={reverse ? 'reverse' : 'forward'}
+        data-paused={paused}
+        style={{ ['--gallery-count' as string]: half.length }}
+      >
         {repeated.map((item, index) => (
           <GalleryItem
             key={`${item.id}-${index}`}
             item={item}
-            tall={index % 3 === 1}
-            sizes="(min-width: 768px) 20rem, 11rem"
+            sizes="(min-width: 64rem) 17rem, (min-width: 48rem) 14rem, 11rem"
           />
         ))}
       </div>
@@ -45,7 +59,7 @@ function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?:
 
 export function GalleryGridFallback({ items }: GalleryTickerProps) {
   return (
-    <div className="gallery-fallback mx-auto max-w-[var(--container-wide)] grid-cols-2 gap-[var(--space-3)] px-[var(--page-gutter)] md:grid-cols-3">
+    <div className="gallery-fallback mx-auto max-w-[var(--container-wide)] grid-cols-2 gap-[2px] px-[var(--page-gutter)] md:grid-cols-3">
       {items.map((item) => (
         <GalleryItem key={item.id} item={item} sizes="(min-width: 768px) 33vw, 50vw" fluid />
       ))}
@@ -65,15 +79,15 @@ export function GalleryTicker({ items }: GalleryTickerProps) {
 
     const observer = new IntersectionObserver(
       ([entry]) => setPaused(!entry?.isIntersecting),
-      { rootMargin: '160px 0px', threshold: 0.05 },
+      { rootMargin: '160px 0px', threshold: 0.01 },
     );
     observer.observe(root);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div ref={rootRef}>
-      <div className="gallery-motion flex flex-col gap-[var(--space-3)] md:gap-[var(--space-4)]">
+    <div ref={rootRef} className="gallery-bleed">
+      <div className="gallery-motion flex flex-col gap-[2px]">
         <GalleryRow items={firstRow} paused={paused} />
         <GalleryRow items={secondRow} reverse paused={paused} />
       </div>
