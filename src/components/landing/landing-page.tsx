@@ -188,12 +188,12 @@ export function LandingPage() {
                   <Check aria-hidden="true" className="size-4 text-[var(--brand-accent)]" />
                   {landingContent.booking.benefit}
                 </p>
-                <ol className="mt-[var(--space-5)] border-t border-[var(--border-subtle)]">
+                <ol className="mt-[var(--space-5)] flex flex-col gap-[var(--space-3)] border-t border-[var(--border-subtle)] pt-[var(--space-5)] sm:flex-row sm:flex-wrap sm:items-center sm:gap-[var(--space-4)]">
                   {landingContent.booking.steps.map((step, index) => (
-                    <li
-                      key={step}
-                      className="flex items-baseline gap-[var(--space-4)] border-b border-[var(--border-subtle)] py-[var(--space-4)]"
-                    >
+                    <li key={step} className="flex items-center gap-[var(--space-3)] sm:gap-[var(--space-4)]">
+                      {index > 0 ? (
+                        <ArrowRight aria-hidden="true" className="hidden size-4 shrink-0 text-[var(--text-muted)] sm:block" />
+                      ) : null}
                       <span className="type-eyebrow text-[var(--brand-accent)]">0{index + 1}</span>
                       <p className="type-label">{step}</p>
                     </li>
