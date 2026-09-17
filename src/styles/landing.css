@@ -116,6 +116,14 @@
   scrollbar-color: var(--border-strong) transparent;
 }
 
+.review-quote {
+  max-width: 26ch;
+  font-size: clamp(1.375rem, 4.4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+}
+
 .quote-mark {
   font-family: var(--font-barlow-condensed), Impact, sans-serif;
   font-size: 7rem;

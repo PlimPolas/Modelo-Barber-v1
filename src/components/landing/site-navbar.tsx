@@ -1,7 +1,10 @@
 'use client';
 
 import { ArrowRight, Menu } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link } from '@/lib/app-link';
+
+import { cn } from '@/lib/utils';
 
 import { ActionLink } from '@/components/actions';
 import {
@@ -28,8 +31,24 @@ interface SiteNavbarProps {
 }
 
 export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbarProps) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[rgb(11_12_12/82%)] backdrop-blur-xl">
+    <header
+      className={cn(
+        'motion-level-1 fixed inset-x-0 top-0 z-50 border-b transition-colors duration-200',
+        scrolled
+          ? 'border-white/10 bg-[rgb(11_12_12/86%)] backdrop-blur-xl'
+          : 'border-transparent bg-transparent',
+      )}
+    >
       <div className="mx-auto flex min-h-16 max-w-[var(--container-wide)] items-center justify-between gap-[var(--space-3)] px-[var(--page-gutter)] md:min-h-[4.5rem]">
         <a href="#inicio" className="group inline-flex min-h-12 items-center gap-[var(--space-3)]" aria-label={`${brand.name}, início`}>
           <span className="grid size-9 place-items-center border border-[var(--brand-accent)] font-bold text-[var(--brand-accent)] transition-colors group-hover:bg-[var(--brand-accent)] group-hover:text-[var(--text-on-accent)]">
@@ -51,9 +70,10 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
         </nav>
 
         <div className="flex items-center gap-[var(--space-2)]">
-          <ActionLink href="/booking" className="hidden sm:inline-flex">
-            {bookingLabel}
-            <ArrowRight aria-hidden="true" />
+          <ActionLink href="/booking" aria-label={bookingLabel} className="px-[var(--space-4)] sm:px-[var(--space-5)]">
+            <span className="sm:hidden">Agendar</span>
+            <span className="hidden sm:inline">{bookingLabel}</span>
+            <ArrowRight aria-hidden="true" className="hidden sm:block" />
           </ActionLink>
 
           <Sheet>

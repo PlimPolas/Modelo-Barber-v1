@@ -16,7 +16,7 @@ export function BarberCard({ barber, media, actionPrefix }: BarberCardProps) {
       <div className="overflow-hidden bg-[var(--surface)]">
         <FocalImage
           asset={media}
-          aspectRatio="3 / 4"
+          aspectRatio="4 / 5"
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           imageClassName="motion-level-2 scale-[1.01] transition-transform group-hover:scale-[1.04]"
         />
