@@ -1,7 +1,10 @@
 'use client';
 
 import { ArrowRight, Menu } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link } from '@/lib/app-link';
+
+import { cn } from '@/lib/utils';
 
 import { ActionLink } from '@/components/actions';
 import {
