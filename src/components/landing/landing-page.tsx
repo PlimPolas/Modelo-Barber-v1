@@ -157,7 +157,7 @@ export function LandingPage() {
         <TeamSection barbers={activeBarbers} resolveMedia={getMedia} />
 
         <section id="galeria" className="landing-anchor overflow-hidden border-y border-[var(--border-subtle)] bg-[var(--background-secondary)] py-[var(--space-9)] md:py-[var(--space-11)]">
-          <div className="mx-auto mb-[var(--space-8)] max-w-[var(--container-wide)] px-[var(--page-gutter)]">
+          <div className="mx-auto mb-[var(--space-8)] max-w-[var(--container-wide)] px-[var(--page-gutter)] md:mb-[var(--space-9)]">
             <SectionHeader
               eyebrow={landingContent.gallery.eyebrow}
               title={landingContent.gallery.title}
