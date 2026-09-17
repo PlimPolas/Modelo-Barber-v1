@@ -13,12 +13,13 @@ interface GalleryItemProps {
   item: MediaAsset;
   sizes: string;
   fluid?: boolean;
+  tall?: boolean;
 }
 
-export function GalleryItem({ item, sizes, fluid = false }: GalleryItemProps) {
+export function GalleryItem({ item, sizes, fluid = false, tall = false }: GalleryItemProps) {
   return (
-    <div className={`${fluid ? '' : 'gallery-item'} overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface)]`}>
-      <FocalImage asset={item} aspectRatio="4 / 3" sizes={sizes} />
+    <div className={`${fluid ? '' : `gallery-item${tall ? ' gallery-item-tall' : ''}`} overflow-hidden bg-[var(--surface)]`}>
+      <FocalImage asset={item} aspectRatio={tall ? '3 / 4' : '4 / 3'} sizes={sizes} />
     </div>
   );
 }
@@ -30,7 +31,12 @@ function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?:
     <div className="gallery-viewport" aria-hidden="true">
       <div className="gallery-track" data-direction={reverse ? 'reverse' : 'forward'} data-paused={paused}>
         {repeated.map((item, index) => (
-          <GalleryItem key={`${item.id}-${index}`} item={item} sizes="(min-width: 768px) 18rem, 10rem" />
+          <GalleryItem
+            key={`${item.id}-${index}`}
+            item={item}
+            tall={index % 3 === 1}
+            sizes="(min-width: 768px) 20rem, 11rem"
+          />
         ))}
       </div>
     </div>
@@ -39,7 +45,7 @@ function GalleryRow({ items, reverse, paused }: { items: MediaAsset[]; reverse?:
 
 export function GalleryGridFallback({ items }: GalleryTickerProps) {
   return (
-    <div className="gallery-fallback grid-cols-2 gap-[var(--space-3)] md:grid-cols-3">
+    <div className="gallery-fallback mx-auto max-w-[var(--container-wide)] grid-cols-2 gap-[var(--space-3)] px-[var(--page-gutter)] md:grid-cols-3">
       {items.map((item) => (
         <GalleryItem key={item.id} item={item} sizes="(min-width: 768px) 33vw, 50vw" fluid />
       ))}
@@ -67,7 +73,7 @@ export function GalleryTicker({ items }: GalleryTickerProps) {
 
   return (
     <div ref={rootRef}>
-      <div className="gallery-motion space-y-[var(--space-3)] md:space-y-[var(--space-4)]">
+      <div className="gallery-motion flex flex-col gap-[var(--space-3)] md:gap-[var(--space-4)]">
         <GalleryRow items={firstRow} paused={paused} />
         <GalleryRow items={secondRow} reverse paused={paused} />
       </div>
