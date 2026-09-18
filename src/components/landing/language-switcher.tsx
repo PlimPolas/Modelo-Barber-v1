@@ -17,7 +17,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
       role="group"
       aria-label={t.switcherLabel}
       className={cn(
-        'inline-flex items-center gap-px border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-1',
+        'inline-flex items-center gap-px rounded-full border-[0.5px] border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-1',
         className,
       )}
     >
