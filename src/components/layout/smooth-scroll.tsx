@@ -7,7 +7,7 @@ import { useEffect } from 'react';
  */
 export function SmoothScroll() {
   useEffect(() => {
-    const desktopPointer = window.matchMedia('(min-width: 48rem) and (hover: hover) and (pointer: fine)');
+    const desktopPointer = window.matchMedia('(any-hover: hover) and (any-pointer: fine)');
     if (!desktopPointer.matches) return;
 
     const SMOOTHING = 0.08;
