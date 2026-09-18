@@ -9,6 +9,10 @@ export interface Brand {
   accentColor: string;
   defaultLocale: string;
   defaultCurrency: string;
+  signature?: {
+    handle: string;
+    href: string;
+  };
   socialLinks: {
     instagram?: string;
     website?: string;
