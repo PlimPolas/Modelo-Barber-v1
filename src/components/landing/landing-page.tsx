@@ -252,6 +252,12 @@ export function LandingPage() {
                 <a key={policy.key} href={policy.href} className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{policy.label}</a>
               ))}
               <Link href="/style-guide" className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{t.footer.styleGuideLabel}</Link>
+              {brand.signature ? (
+                <a href={brand.signature.href} target="_blank" rel="noreferrer" className="type-small inline-flex min-h-11 items-center py-3 text-[var(--text-muted)] hover:text-[var(--brand-accent)]">
+                  {brand.signature.handle}
+                  <span className="sr-only">{t.common.newTabHint}</span>
+                </a>
+              ) : null}
             </div>
           </div>
         </div>

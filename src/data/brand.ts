@@ -10,6 +10,10 @@ export const brand: Brand = {
   accentColor: '#D0A15E',
   defaultLocale: 'pt-BR',
   defaultCurrency: 'BRL',
+  signature: {
+    handle: '@BenevenutoDigital',
+    href: 'https://www.instagram.com/benevenutodigital/',
+  },
   socialLinks: {
     instagram: 'https://instagram.com/',
   },
