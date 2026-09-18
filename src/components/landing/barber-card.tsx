@@ -2,6 +2,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { Link } from '@/lib/app-link';
 
 import { FocalImage } from '@/components/media';
+
+import { AvatarPlaceholder } from './avatar-placeholder';
 import type { Barber, MediaAsset } from '@/types';
 
 interface BarberCardProps {
