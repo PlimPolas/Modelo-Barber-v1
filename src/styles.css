@@ -55,7 +55,21 @@
 
 html {
   color-scheme: dark;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* fallback when smooth scrolling engine is inactive */
+}
+
+/* Lenis base styles — required so the smooth scroll engine drives the page. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 body {
