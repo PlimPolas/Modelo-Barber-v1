@@ -122,37 +122,6 @@ export function LandingPage() {
           </div>
         </SectionContainer>
 
-        <section className="bg-[var(--background-secondary)]">
-          <SectionContainer size="wide" spacing="editorial">
-            <div className="grid gap-[var(--space-8)] lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-[var(--space-10)]">
-              <div>
-                <SectionHeader
-                  eyebrow={landingContent.about.eyebrow}
-                  title={landingContent.about.title}
-                  description={landingContent.about.manifesto}
-                />
-                <ol className="mt-[var(--space-8)] border-t border-[var(--border-subtle)]">
-                  {landingContent.about.principles.map((principle) => (
-                    <li key={principle.index} className="grid grid-cols-[2.5rem_1fr] gap-[var(--space-4)] border-b border-[var(--border-subtle)] py-[var(--space-5)]">
-                      <span className="type-eyebrow pt-1 text-[var(--brand-accent)]">{principle.index}</span>
-                      <div>
-                        <h3 className="type-h3">{principle.title}</h3>
-                        <p className="type-body mt-2 text-[var(--text-secondary)]">{principle.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              <div className="overflow-hidden border border-[var(--border-subtle)] lg:mt-[var(--space-8)]">
-                <FocalImage
-                  asset={getMedia(landingContent.about.mediaId)}
-                  aspectRatio="4 / 3"
-                  sizes="(min-width: 1024px) 60vw, 100vw"
-                />
-              </div>
-            </div>
-          </SectionContainer>
-        </section>
 
         <TeamSection barbers={activeBarbers} resolveMedia={getMedia} />
 
