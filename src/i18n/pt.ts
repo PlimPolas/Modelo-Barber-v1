@@ -7,6 +7,7 @@ export const pt = {
   htmlLang: 'pt-BR',
   locale: 'pt-BR',
   label: 'PT',
+  brandTagline: 'Precisão, presença e cuidado.',
   switcherLabel: 'Selecionar idioma',
   languageNames: { pt: 'Português', en: 'English', es: 'Español' },
 

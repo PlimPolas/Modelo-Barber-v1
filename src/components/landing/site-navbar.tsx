@@ -99,7 +99,7 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
             >
               <SheetHeader className="border-b border-[var(--border-subtle)] p-[var(--space-5)] pr-16">
                 <SheetTitle className="type-h3">{brand.name}</SheetTitle>
-                <SheetDescription>{brand.tagline}</SheetDescription>
+                <SheetDescription>{t.brandTagline}</SheetDescription>
               </SheetHeader>
               <nav aria-label={t.navigation.mobileNavLabel} className="flex flex-1 flex-col px-[var(--space-5)] py-[var(--space-6)]">
                 {links.map((link, index) => (

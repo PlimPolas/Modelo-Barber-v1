@@ -5,6 +5,7 @@ export const en: Dictionary = {
   htmlLang: 'en',
   locale: 'en-US',
   label: 'EN',
+  brandTagline: 'Precision, presence and care.',
   switcherLabel: 'Select language',
   languageNames: { pt: 'Português', en: 'English', es: 'Español' },
 
