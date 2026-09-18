@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import { Link } from '@/lib/app-link';
 
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
+
+import { LanguageSwitcher } from './language-switcher';
 
 import { ActionLink } from '@/components/actions';
 import {
@@ -31,6 +34,7 @@ interface SiteNavbarProps {
 }
 
 export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbarProps) {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -50,14 +54,14 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
       )}
     >
       <div className="mx-auto flex min-h-16 max-w-[var(--container-wide)] items-center justify-between gap-[var(--space-3)] px-[var(--page-gutter)] md:min-h-[4.5rem]">
-        <a href="#inicio" className="group inline-flex min-h-12 items-center gap-[var(--space-3)]" aria-label={`${brand.name}, início`}>
+        <a href="#inicio" className="group inline-flex min-h-12 items-center gap-[var(--space-3)]" aria-label={`${brand.name}, ${t.navigation.homeLabel}`}>
           <span className="grid size-9 place-items-center border border-[var(--brand-accent)] font-bold text-[var(--brand-accent)] transition-colors group-hover:bg-[var(--brand-accent)] group-hover:text-[var(--text-on-accent)]">
             {brand.shortName}
           </span>
           <span className="type-label hidden sm:block">{brand.name}</span>
         </a>
 
-        <nav aria-label="Navegação principal" className="hidden items-center gap-[var(--space-5)] lg:flex">
+        <nav aria-label={t.navigation.mainNavLabel} className="hidden items-center gap-[var(--space-5)] lg:flex">
           {links.map((link) => (
             <a
               key={link.href}
@@ -70,8 +74,9 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
         </nav>
 
         <div className="flex items-center gap-[var(--space-2)]">
+          <LanguageSwitcher className="mr-[var(--space-1)] hidden sm:flex" />
           <ActionLink href="/booking" aria-label={bookingLabel} className="px-[var(--space-4)] sm:px-[var(--space-5)]">
-            <span className="sm:hidden">Agendar</span>
+            <span className="sm:hidden">{t.navigation.bookingLabelShort}</span>
             <span className="hidden sm:inline">{bookingLabel}</span>
             <ArrowRight aria-hidden="true" className="hidden sm:block" />
           </ActionLink>
@@ -96,7 +101,7 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
                 <SheetTitle className="type-h3">{brand.name}</SheetTitle>
                 <SheetDescription>{brand.tagline}</SheetDescription>
               </SheetHeader>
-              <nav aria-label="Navegação mobile" className="flex flex-1 flex-col px-[var(--space-5)] py-[var(--space-6)]">
+              <nav aria-label={t.navigation.mobileNavLabel} className="flex flex-1 flex-col px-[var(--space-5)] py-[var(--space-6)]">
                 {links.map((link, index) => (
                   <SheetClose
                     key={link.href}
@@ -114,6 +119,10 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
                   </SheetClose>
                 ))}
               </nav>
+              <div className="flex items-center justify-between border-t border-[var(--border-subtle)] px-[var(--space-5)] py-[var(--space-2)] sm:hidden">
+                <span className="type-eyebrow text-[var(--text-muted)]">{t.switcherLabel}</span>
+                <LanguageSwitcher />
+              </div>
               <div className="p-[var(--space-5)]">
                 <SheetClose
                   nativeButton={false}
