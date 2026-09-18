@@ -17,7 +17,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
       role="group"
       aria-label={t.switcherLabel}
       className={cn(
-        'inline-flex items-center gap-px border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-1',
+        'inline-flex items-center gap-px rounded-full shadow-[0_0_0_0.5px_var(--border-subtle)] bg-[var(--bg-secondary)] p-1',
         className,
       )}
     >
@@ -31,10 +31,10 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
             aria-pressed={active}
             aria-label={t.languageNames[code]}
             className={cn(
-              'type-eyebrow motion-level-1 inline-flex min-h-9 items-center justify-center px-[var(--space-2)] transition-colors sm:min-h-11 sm:px-[var(--space-3)]',
+              'type-eyebrow motion-level-1 inline-flex min-h-9 items-center justify-center rounded-full px-[var(--space-2)] transition-colors sm:min-h-11 sm:px-[var(--space-3)]',
               active
-                ? 'border border-[var(--brand-accent)] text-[var(--brand-accent)]'
-                : 'border border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]',
+                ? 'shadow-[0_0_0_0.5px_var(--brand-accent)] text-[var(--brand-accent)]'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]',
             )}
           >
             {codeLabels[code]}
