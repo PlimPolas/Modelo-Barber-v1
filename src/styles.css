@@ -58,20 +58,9 @@ html {
   scroll-behavior: smooth; /* fallback when smooth scrolling engine is inactive */
 }
 
-/* Lenis base styles — required so the smooth scroll engine drives the page. */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-html.lenis,
-html.lenis body,
-.lenis.lenis-smooth {
+/* The desktop wheel controller is solely responsible for smoothing during this test. */
+html.custom-wheel-scroll {
   scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-  overflow: clip;
 }
 
 body {

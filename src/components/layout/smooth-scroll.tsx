@@ -1,27 +1,70 @@
 'use client';
 
-import Lenis from 'lenis';
 import { useEffect } from 'react';
 
 /**
- * Global smooth/inertial scrolling. Renders nothing — layout is untouched.
- * Touch devices keep native scrolling (syncTouch: false).
+ * Desktop wheel inertia. Touch devices keep native scrolling.
  */
 export function SmoothScroll() {
   useEffect(() => {
-    // lerp controla a desaceleração: ~0.09 a 60fps ≈ 550-650ms de decaimento
-    // exponencial perceptível após cada giro da roda.
-    const lenis = new Lenis({
-      lerp: 0.07,
-      smoothWheel: true,
-      wheelMultiplier: 1.1,
-      syncTouch: false,
-    });
+    const desktopPointer = window.matchMedia('(min-width: 48rem) and (hover: hover) and (pointer: fine)');
+    if (!desktopPointer.matches) return;
 
-    let frame = requestAnimationFrame(function raf(time: number) {
-      lenis.raf(time);
-      frame = requestAnimationFrame(raf);
-    });
+    const SMOOTHING = 0.08;
+    const STOP_THRESHOLD = 0.5;
+    let currentScroll = window.scrollY;
+    let targetScroll = window.scrollY;
+    let frame: number | null = null;
+    let isAnimating = false;
+
+    document.documentElement.classList.add('custom-wheel-scroll');
+
+    const maximumScroll = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const clampTarget = (value: number) => Math.min(maximumScroll(), Math.max(0, value));
+
+    const animateScroll = () => {
+      isAnimating = true;
+      currentScroll += (targetScroll - currentScroll) * SMOOTHING;
+
+      if (Math.abs(targetScroll - currentScroll) < STOP_THRESHOLD) {
+        currentScroll = targetScroll;
+        window.scrollTo(0, currentScroll);
+        frame = null;
+        isAnimating = false;
+        return;
+      }
+
+      window.scrollTo(0, currentScroll);
+      frame = requestAnimationFrame(animateScroll);
+    };
+
+    const startAnimation = () => {
+      if (frame === null) frame = requestAnimationFrame(animateScroll);
+    };
+
+    const normalizeWheelDelta = (event: WheelEvent) => {
+      if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) return event.deltaY * 16;
+      if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) return event.deltaY * window.innerHeight;
+      return event.deltaY;
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
+      event.preventDefault();
+      targetScroll = clampTarget(targetScroll + normalizeWheelDelta(event));
+      startAnimation();
+    };
+
+    const onNativeScroll = () => {
+      if (isAnimating) return;
+      currentScroll = window.scrollY;
+      targetScroll = window.scrollY;
+    };
+
+    const onResize = () => {
+      targetScroll = clampTarget(targetScroll);
+      currentScroll = Math.min(currentScroll, maximumScroll());
+    };
 
     const headerOffset = () => {
       const shell = document.querySelector('.landing-shell') ?? document.documentElement;
@@ -44,20 +87,25 @@ export function SmoothScroll() {
       if (!target) return;
 
       event.preventDefault();
-      lenis.scrollTo(target as HTMLElement, {
-        offset: -headerOffset() - 16,
-        duration: 1.4,
-        easing: (t: number) => 1 - Math.pow(1 - t, 3),
-      });
+      targetScroll = clampTarget(
+        window.scrollY + target.getBoundingClientRect().top - headerOffset() - 16,
+      );
+      startAnimation();
       window.history.replaceState(null, '', hash);
     };
 
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('scroll', onNativeScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
     document.addEventListener('click', onClick);
 
     return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('scroll', onNativeScroll);
+      window.removeEventListener('resize', onResize);
       document.removeEventListener('click', onClick);
-      cancelAnimationFrame(frame);
-      lenis.destroy();
+      if (frame !== null) cancelAnimationFrame(frame);
+      document.documentElement.classList.remove('custom-wheel-scroll');
     };
   }, []);
 
