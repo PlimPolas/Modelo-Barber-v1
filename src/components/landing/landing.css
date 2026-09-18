@@ -84,13 +84,4 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .gallery-motion {
-    display: none;
-  }
-
-  .gallery-fallback {
-    display: grid;
-  }
-}
 
