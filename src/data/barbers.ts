@@ -4,7 +4,7 @@ export const barbers: Barber[] = [
   {
     id: 'barber-caio',
     slug: 'caio-nunes',
-    name: 'Caio Nunes',
+    name: 'Caio Nunes - EXEMPLO',
     role: 'Barbeiro sênior',
     shortBio: 'Especialista em cortes clássicos e desenho de barba.',
     specialties: ['cortes clássicos', 'barba'],
@@ -18,9 +18,9 @@ export const barbers: Barber[] = [
   {
     id: 'barber-lia',
     slug: 'lia-monteiro',
-    name: 'Lia Monteiro',
+    name: 'Barber 2',
     role: 'Barbeira e visagista',
-    shortBio: 'Cortes contemporâneos com atenção à forma e manutenção.',
+    shortBio: '-------------',
     specialties: ['visagismo', 'cortes contemporâneos'],
     serviceIds: ['service-cut', 'service-finish'],
     locationIds: ['location-central'],
@@ -32,9 +32,9 @@ export const barbers: Barber[] = [
   {
     id: 'barber-ravi',
     slug: 'ravi-costa',
-    name: 'Ravi Costa',
+    name: 'Barber 3',
     role: 'Barbeiro',
-    shortBio: 'Especialista em fades, textura e acabamentos de alta precisão.',
+    shortBio: '-------------',
     specialties: ['fades', 'textura', 'acabamento'],
     serviceIds: ['service-cut', 'service-combo', 'service-finish'],
     locationIds: ['location-central'],
