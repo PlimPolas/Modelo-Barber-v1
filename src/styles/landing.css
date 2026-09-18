@@ -39,7 +39,7 @@
   margin-inline: calc(50% - 50vw);
 
   /* item height, gap and pace per breakpoint */
-  --gallery-height: 9.5rem;
+  --gallery-height: 10.9rem;
   --gallery-gap: 4px;
   --gallery-pace: 2.1s; /* seconds per frame — ritmo da referência: ~12–14% da viewport/s */
 }
@@ -171,7 +171,7 @@
   }
 
   .gallery-bleed {
-    --gallery-height: 11.5rem;
+    --gallery-height: 13.8rem;
     --gallery-gap: 6px;
     --gallery-pace: 1.4s;
   }
@@ -179,7 +179,7 @@
 
 @media (min-width: 64rem) {
   .gallery-bleed {
-    --gallery-height: 13.5rem;
+    --gallery-height: 16.9rem;
     --gallery-gap: 6px;
     --gallery-pace: 1.1s;
   }
