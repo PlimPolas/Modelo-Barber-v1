@@ -37,17 +37,16 @@ function BookingPage() {
           href="/"
           className="type-small inline-flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]"
         >
-          <ArrowLeft aria-hidden="true" className="size-4" /> Voltar para {brand.name}
+          <ArrowLeft aria-hidden="true" className="size-4" /> {t.bookingPage.backPrefix} {brand.name}
         </Link>
         <div className="mt-[var(--space-7)] border border-[var(--border-subtle)] bg-[var(--surface)] p-[var(--space-6)] md:p-[var(--space-8)]">
           <CalendarDays aria-hidden="true" className="size-9 text-[var(--brand-accent)]" />
           <p className="type-eyebrow mt-[var(--space-6)] text-[var(--brand-accent)]">
-            {landingContent.booking.eyebrow}
+            {t.booking.eyebrow}
           </p>
-          <h1 className="type-h1 mt-[var(--space-3)]">Agendamento em preparação.</h1>
+          <h1 className="type-h1 mt-[var(--space-3)]">{t.bookingPage.title}</h1>
           <p className="type-body-large mt-[var(--space-5)] text-[var(--text-secondary)]">
-            Esta rota já recebe as escolhas de serviço ou profissional. O fluxo completo
-            será implementado em uma etapa futura.
+            {t.bookingPage.description}
           </p>
         </div>
       </SectionContainer>
