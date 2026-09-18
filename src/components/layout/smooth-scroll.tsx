@@ -10,8 +10,9 @@ import { useEffect } from 'react';
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.045,
+      lerp: 0.025,
       smoothWheel: true,
+      wheelMultiplier: 1.15,
       syncTouch: false,
     });
 
