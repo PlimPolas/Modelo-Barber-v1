@@ -28,13 +28,13 @@ export function SmoothScroll() {
 
       if (Math.abs(targetScroll - currentScroll) < STOP_THRESHOLD) {
         currentScroll = targetScroll;
-        window.scrollTo(0, currentScroll);
+        window.scrollTo({ top: currentScroll, left: 0, behavior: 'instant' as ScrollBehavior });
         frame = null;
         isAnimating = false;
         return;
       }
 
-      window.scrollTo(0, currentScroll);
+      window.scrollTo({ top: currentScroll, left: 0, behavior: 'instant' as ScrollBehavior });
       frame = requestAnimationFrame(animateScroll);
     };
 
