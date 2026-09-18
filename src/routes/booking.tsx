@@ -28,6 +28,8 @@ export const Route = createFileRoute("/booking")({
 });
 
 function BookingPage() {
+  const { t } = useI18n();
+
   return (
     <PageContainer className="grid place-items-center">
       <SectionContainer size="small" spacing="editorial">
