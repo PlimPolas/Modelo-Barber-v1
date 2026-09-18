@@ -119,10 +119,6 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
                   </SheetClose>
                 ))}
               </nav>
-              <div className="flex items-center justify-between border-t border-[var(--border-subtle)] px-[var(--space-5)] py-[var(--space-2)] sm:hidden">
-                <span className="type-eyebrow text-[var(--text-muted)]">{t.switcherLabel}</span>
-                <LanguageSwitcher />
-              </div>
               <div className="p-[var(--space-5)]">
                 <SheetClose
                   nativeButton={false}
