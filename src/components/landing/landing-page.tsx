@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ArrowRight,
   AtSign,
@@ -11,6 +13,8 @@ import { ActionLink } from '@/components/actions';
 import { PageContainer, SectionContainer, SectionHeader } from '@/components/layout';
 import { FocalImage } from '@/components/media';
 import { barbers, brand, landingContent, locations, media, reviews, services } from '@/data';
+import { localizeBarber, localizeLocation, localizeReview, localizeService, useI18n } from '@/i18n';
+import type { Dictionary } from '@/i18n';
 import type { MediaAsset } from '@/types';
 
 import { GalleryTicker } from './gallery-ticker';
@@ -26,8 +30,8 @@ function getMedia(id: string) {
   return asset;
 }
 
-function Hero({ asset }: { asset: MediaAsset }) {
-  const content = landingContent.hero;
+function Hero({ asset, t }: { asset: MediaAsset; t: Dictionary }) {
+  const content = t.hero;
 
   return (
     <section id="inicio" className="landing-anchor relative min-h-[100svh] overflow-hidden bg-[var(--background-primary)]">
@@ -71,30 +75,38 @@ function Hero({ asset }: { asset: MediaAsset }) {
 }
 
 export function LandingPage() {
-  const location = locations.find((item) => item.active) ?? locations[0]!;
-  const activeServices = services.filter((item) => item.active).sort((a, b) => a.sortOrder - b.sortOrder);
-  const activeBarbers = barbers.filter((item) => item.active).sort((a, b) => a.sortOrder - b.sortOrder);
-  const featuredReviews = reviews.filter((item) => item.featured);
+  const { t } = useI18n();
+  const baseLocation = locations.find((item) => item.active) ?? locations[0]!;
+  const location = localizeLocation(baseLocation, t);
+  const activeServices = services
+    .filter((item) => item.active)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((item) => localizeService(item, t));
+  const activeBarbers = barbers
+    .filter((item) => item.active)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((item) => localizeBarber(item, t));
+  const featuredReviews = reviews.filter((item) => item.featured).map((item) => localizeReview(item, t));
   const galleryItems = landingContent.gallery.mediaIds.map(getMedia);
 
   return (
     <div className="landing-shell bg-[var(--background-primary)] text-[var(--text-primary)]">
       <SiteNavbar
         brand={brand}
-        links={landingContent.navigation.links}
-        bookingLabel={landingContent.navigation.bookingLabel}
-        menuLabel={landingContent.navigation.menuLabel}
+        links={t.navigation.links}
+        bookingLabel={t.navigation.bookingLabel}
+        menuLabel={t.navigation.menuLabel}
       />
 
       <PageContainer>
-        <Hero asset={getMedia(landingContent.hero.mediaId)} />
+        <Hero asset={getMedia(landingContent.hero.mediaId)} t={t} />
 
-        <section aria-label="Indicadores" className="border-b border-[var(--border-subtle)] bg-[var(--background-primary)]">
+        <section aria-label={t.socialProof.label} className="border-b border-[var(--border-subtle)] bg-[var(--background-primary)]">
           <div className="mx-auto grid max-w-[var(--container-wide)] grid-cols-2 gap-y-[var(--space-6)] px-[var(--page-gutter)] py-[var(--space-7)] sm:grid-cols-4 md:py-[var(--space-8)]">
-            {landingContent.socialProof.map((metric) => (
+            {t.socialProof.items.map((metric, index) => (
               <div
-                key={metric.label}
-                className={`${metric.compact ? '' : 'hidden sm:block'} border-l border-[var(--border-subtle)] px-[var(--space-4)] md:px-[var(--space-6)]`}
+                key={metric.key}
+                className={`${index < 2 ? '' : 'hidden sm:block'} border-l border-[var(--border-subtle)] px-[var(--space-4)] md:px-[var(--space-6)]`}
               >
                 <p className="type-h3 text-[var(--text-primary)]">{metric.value}</p>
                 <p className="type-small mt-[var(--space-2)] text-[var(--text-muted)]">{metric.label}</p>
@@ -105,18 +117,19 @@ export function LandingPage() {
 
         <SectionContainer id="servicos" size="wide" spacing="editorial" className="landing-anchor">
           <SectionHeader
-            eyebrow={landingContent.services.eyebrow}
-            title={landingContent.services.title}
-            description={landingContent.services.description}
+            eyebrow={t.services.eyebrow}
+            title={t.services.title}
+            description={t.services.description}
           />
           <div className="mt-[var(--space-8)] grid gap-px border-y border-[var(--border-subtle)] bg-[var(--border-subtle)] md:grid-cols-2">
             {activeServices.map((service) => (
               <ServiceCard
                 key={service.id}
                 service={service}
-                actionLabel={landingContent.services.actionLabel}
-                featuredLabel={landingContent.services.featuredLabel}
-                locale={brand.defaultLocale}
+                actionLabel={t.services.actionLabel}
+                featuredLabel={t.services.featuredLabel}
+                minutesSuffix={t.services.minutesSuffix}
+                locale={t.locale}
               />
             ))}
           </div>
@@ -128,26 +141,26 @@ export function LandingPage() {
         <section id="galeria" className="landing-anchor overflow-hidden border-y border-[var(--border-subtle)] bg-[var(--background-secondary)] py-[var(--space-9)] md:py-[var(--space-11)]">
           <div className="mx-auto mb-[var(--space-8)] max-w-[var(--container-wide)] px-[var(--page-gutter)] md:mb-[var(--space-9)]">
             <SectionHeader
-              eyebrow={landingContent.gallery.eyebrow}
-              title={landingContent.gallery.title}
-              description={landingContent.gallery.description}
+              eyebrow={t.gallery.eyebrow}
+              title={t.gallery.title}
+              description={t.gallery.description}
             />
           </div>
           <GalleryTicker items={galleryItems} />
         </section>
 
-        <ReviewsSection reviews={featuredReviews} locale={brand.defaultLocale} />
+        <ReviewsSection reviews={featuredReviews} locale={t.locale} />
 
         <section className="border-y border-[var(--border-subtle)] bg-[var(--background-secondary)]">
           <SectionContainer size="wide" spacing="default">
             <div className="grid gap-[var(--space-8)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,.9fr)] lg:items-end lg:gap-[var(--space-10)]">
               <SectionHeader
-                eyebrow={landingContent.booking.eyebrow}
-                title={landingContent.booking.title}
-                description={landingContent.booking.description}
+                eyebrow={t.booking.eyebrow}
+                title={t.booking.title}
+                description={t.booking.description}
                 action={
                   <ActionLink href="/booking" size="large">
-                    {landingContent.booking.actionLabel}
+                    {t.booking.actionLabel}
                     <ArrowRight aria-hidden="true" />
                   </ActionLink>
                 }
@@ -155,10 +168,10 @@ export function LandingPage() {
               <div>
                 <p className="type-small flex items-center gap-2 text-[var(--text-secondary)]">
                   <Check aria-hidden="true" className="size-4 text-[var(--brand-accent)]" />
-                  {landingContent.booking.benefit}
+                  {t.booking.benefit}
                 </p>
                 <ol className="mt-[var(--space-5)] flex flex-col gap-[var(--space-3)] border-t border-[var(--border-subtle)] pt-[var(--space-5)] sm:flex-row sm:items-center sm:justify-between sm:gap-[var(--space-2)]">
-                  {landingContent.booking.steps.map((step, index) => (
+                  {t.booking.steps.map((step, index) => (
                     <li key={step} className="flex items-center gap-[var(--space-3)] whitespace-nowrap sm:gap-[var(--space-2)]">
                       {index > 0 ? (
                         <ArrowRight aria-hidden="true" className="mr-[var(--space-2)] hidden size-3.5 shrink-0 text-[var(--text-muted)] sm:block" />
@@ -179,19 +192,19 @@ export function LandingPage() {
           <SectionContainer size="wide" spacing="editorial">
             <div className="grid gap-[var(--space-8)] lg:grid-cols-[1fr_auto] lg:items-end lg:gap-[var(--space-10)]">
               <div>
-                <p className="type-eyebrow text-[var(--brand-accent-active)]">{landingContent.finalCta.eyebrow}</p>
-                <h2 className="type-h1 mt-[var(--space-5)] max-w-[11ch]">{landingContent.finalCta.title}</h2>
-                <p className="type-body-large mt-[var(--space-5)] max-w-[38ch] text-[var(--text-inverse)]/65">{landingContent.finalCta.description}</p>
+                <p className="type-eyebrow text-[var(--brand-accent-active)]">{t.finalCta.eyebrow}</p>
+                <h2 className="type-h1 mt-[var(--space-5)] max-w-[11ch]">{t.finalCta.title}</h2>
+                <p className="type-body-large mt-[var(--space-5)] max-w-[38ch] text-[var(--text-inverse)]/65">{t.finalCta.description}</p>
               </div>
               <div className="flex flex-col gap-[var(--space-3)] sm:flex-row lg:flex-col lg:items-stretch">
                 <Link href="/booking" className="type-button inline-flex min-h-14 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-[var(--brand-accent-active)] px-[var(--space-7)] text-[var(--surface-inverse)]">
-                  {landingContent.finalCta.actionLabel}
+                  {t.finalCta.actionLabel}
                   <ArrowRight aria-hidden="true" className="size-4" />
                 </Link>
                 {location.whatsapp ? (
                   <a href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer" className="type-button inline-flex min-h-14 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--text-inverse)]/25 px-[var(--space-7)]">
-                    {landingContent.finalCta.alternativeLabel}
-                    <span className="sr-only"> (abre em nova aba)</span>
+                    {t.finalCta.alternativeLabel}
+                    <span className="sr-only">{t.common.newTabHint}</span>
                   </a>
                 ) : null}
               </div>
@@ -208,37 +221,37 @@ export function LandingPage() {
                 <span className="grid size-10 place-items-center border border-[var(--brand-accent)] font-bold text-[var(--brand-accent)]">{brand.shortName}</span>
                 <span className="type-h3">{brand.name}</span>
               </div>
-              <p className="type-body mt-[var(--space-4)] max-w-sm text-[var(--text-secondary)]">{landingContent.footer.description}</p>
+              <p className="type-body mt-[var(--space-4)] max-w-sm text-[var(--text-secondary)]">{t.footer.description}</p>
             </div>
             <div>
-              <p className="type-label">{landingContent.footer.navigationLabel}</p>
+              <p className="type-label">{t.footer.navigationLabel}</p>
               <ul className="mt-[var(--space-4)] space-y-2">
-                {landingContent.navigation.links.map((link) => (
+                {t.navigation.links.map((link) => (
                   <li key={link.href}><a className="type-small inline-flex min-h-11 items-center text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={link.href}>{link.label}</a></li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="type-label">{landingContent.footer.contactLabel}</p>
+              <p className="type-label">{t.footer.contactLabel}</p>
               <div className="mt-[var(--space-4)] space-y-2">
                 <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={formatPhoneHref(location.phone)}><Phone aria-hidden="true" className="size-4" />{location.phone}</a>
-                {location.whatsapp ? <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" className="size-4" />{landingContent.footer.whatsappLabel}<span className="sr-only"> (abre em nova aba)</span></a> : null}
-                {brand.socialLinks.instagram ? <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={brand.socialLinks.instagram} target="_blank" rel="noreferrer"><AtSign aria-hidden="true" className="size-4" />{landingContent.footer.instagramLabel}<span className="sr-only"> (abre em nova aba)</span></a> : null}
+                {location.whatsapp ? <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" className="size-4" />{t.footer.whatsappLabel}<span className="sr-only">{t.common.newTabHint}</span></a> : null}
+                {brand.socialLinks.instagram ? <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={brand.socialLinks.instagram} target="_blank" rel="noreferrer"><AtSign aria-hidden="true" className="size-4" />{t.footer.instagramLabel}<span className="sr-only">{t.common.newTabHint}</span></a> : null}
               </div>
             </div>
             <div>
-              <p className="type-label">{landingContent.footer.hoursLabel}</p>
-              <p className="type-small mt-[var(--space-4)] text-[var(--text-secondary)]">{landingContent.footer.hoursSummary}</p>
-              <Link href="/booking" className="type-small mt-[var(--space-4)] inline-flex min-h-11 items-center gap-2 text-[var(--brand-accent)]">{landingContent.navigation.bookingLabel}<ArrowRight aria-hidden="true" className="size-4" /></Link>
+              <p className="type-label">{t.footer.hoursLabel}</p>
+              <p className="type-small mt-[var(--space-4)] text-[var(--text-secondary)]">{t.footer.hoursSummary}</p>
+              <Link href="/booking" className="type-small mt-[var(--space-4)] inline-flex min-h-11 items-center gap-2 text-[var(--brand-accent)]">{t.navigation.bookingLabel}<ArrowRight aria-hidden="true" className="size-4" /></Link>
             </div>
           </div>
           <div className="mt-[var(--space-9)] flex flex-col gap-[var(--space-4)] border-t border-[var(--border-subtle)] pt-[var(--space-5)] md:flex-row md:items-center md:justify-between">
-            <p className="type-small text-[var(--text-muted)]">© {new Date().getFullYear()} {brand.name}. {landingContent.footer.copyrightSuffix}</p>
+            <p className="type-small text-[var(--text-muted)]">© {new Date().getFullYear()} {brand.name}. {t.footer.copyrightSuffix}</p>
             <div className="flex flex-wrap gap-[var(--space-5)]">
-              {landingContent.footer.policies.map((policy) => (
-                <a key={policy.label} href={policy.href} className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{policy.label}</a>
+              {t.footer.policies.map((policy) => (
+                <a key={policy.key} href={policy.href} className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{policy.label}</a>
               ))}
-              <Link href="/style-guide" className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{landingContent.footer.styleGuideLabel}</Link>
+              <Link href="/style-guide" className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{t.footer.styleGuideLabel}</Link>
             </div>
           </div>
         </div>
