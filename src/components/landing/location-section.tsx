@@ -1,11 +1,11 @@
+'use client';
+
 import { ArrowUpRight, MapPin, MessageCircle, Phone } from 'lucide-react';
 
 import { ActionLink } from '@/components/actions';
 import { SectionContainer, SectionHeader } from '@/components/layout';
-import { landingContent } from '@/data';
+import { useI18n } from '@/i18n';
 import type { Location, OpeningPeriod } from '@/types';
-
-const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'] as const;
 
 function formatPhoneHref(phone: string) {
   return `tel:${phone.replace(/[^+\d]/g, '')}`;
@@ -16,13 +16,16 @@ function formatWhatsappHref(phone: string) {
 }
 
 export function OpeningHours({ periods }: { periods: OpeningPeriod[] }) {
+  const { t } = useI18n();
+  const dayNames = t.location.dayNames;
+
   return (
     <dl className="space-y-[var(--space-2)]">
       {periods.map((period) => (
         <div key={period.day} className="type-small flex items-center justify-between gap-[var(--space-5)]">
           <dt className="text-[var(--text-muted)]">{dayNames[period.day]}</dt>
           <dd className="text-right text-[var(--text-primary)]">
-            {period.closed ? 'Fechado' : `${period.opensAt}–${period.closesAt}`}
+            {period.closed ? t.location.closedLabel : `${period.opensAt}–${period.closesAt}`}
           </dd>
         </div>
       ))}
@@ -31,14 +34,15 @@ export function OpeningHours({ periods }: { periods: OpeningPeriod[] }) {
 }
 
 export function LocationInfo({ location }: { location: Location }) {
+  const { t } = useI18n();
   const address = `${location.addressLine1}, ${location.district} — ${location.city}, ${location.region}`;
 
   return (
     <div className="bg-[var(--background-secondary)] px-[var(--space-5)] py-[var(--space-8)] md:p-[var(--space-8)] lg:p-[var(--space-10)]">
       <SectionHeader
-        eyebrow={landingContent.location.eyebrow}
-        title={landingContent.location.title}
-        description={landingContent.location.description}
+        eyebrow={t.location.eyebrow}
+        title={t.location.title}
+        description={t.location.description}
       />
       <div className="mt-[var(--space-8)] grid gap-[var(--space-7)] border-t border-[var(--border-subtle)] pt-[var(--space-7)] sm:grid-cols-2 sm:gap-[var(--space-8)]">
         <div>
@@ -49,30 +53,30 @@ export function LocationInfo({ location }: { location: Location }) {
           <p className="type-body mt-[var(--space-2)] text-[var(--text-secondary)]">
             {location.district} — {location.city}, {location.region}
             <br />
-            CEP {location.postalCode}
+            {t.location.postalCodePrefix} {location.postalCode}
           </p>
           <p className="type-body mt-[var(--space-4)] text-[var(--text-secondary)]">{location.phone}</p>
         </div>
         <div>
-          <p className="type-eyebrow text-[var(--text-muted)]">{landingContent.location.hoursLabel}</p>
+          <p className="type-eyebrow text-[var(--text-muted)]">{t.location.hoursLabel}</p>
           <div className="mt-[var(--space-3)]">
             <OpeningHours periods={location.openingHours} />
           </div>
         </div>
       </div>
       <div className="mt-[var(--space-8)] flex flex-col gap-[var(--space-3)] sm:flex-row sm:flex-wrap">
-        <ActionLink href="/booking">{landingContent.location.actions.booking}</ActionLink>
+        <ActionLink href="/booking">{t.location.actions.booking}</ActionLink>
         <ActionLink tone="secondary" href={location.directionsUrl ?? location.mapUrl ?? '#'} external>
-          <MapPin aria-hidden="true" /> {landingContent.location.actions.directions}
-          <span className="sr-only"> (abre em nova aba)</span>
+          <MapPin aria-hidden="true" /> {t.location.actions.directions}
+          <span className="sr-only">{t.common.newTabHint}</span>
         </ActionLink>
         <ActionLink tone="secondary" href={formatPhoneHref(location.phone)}>
-          <Phone aria-hidden="true" /> {landingContent.location.actions.call}
+          <Phone aria-hidden="true" /> {t.location.actions.call}
         </ActionLink>
         {location.whatsapp ? (
           <ActionLink tone="secondary" href={formatWhatsappHref(location.whatsapp)} external>
-            <MessageCircle aria-hidden="true" /> {landingContent.location.actions.whatsapp}
-            <span className="sr-only"> (abre em nova aba)</span>
+            <MessageCircle aria-hidden="true" /> {t.location.actions.whatsapp}
+            <span className="sr-only">{t.common.newTabHint}</span>
           </ActionLink>
         ) : null}
       </div>
@@ -81,13 +85,15 @@ export function LocationInfo({ location }: { location: Location }) {
 }
 
 export function MapContainer({ location }: { location: Location }) {
+  const { t } = useI18n();
+
   return (
     <a
       href={location.mapUrl ?? location.directionsUrl ?? '#'}
       target="_blank"
       rel="noreferrer"
       className="map-surface group relative grid min-h-[22rem] place-items-center overflow-hidden border-t border-[var(--border-subtle)] lg:min-h-full lg:border-l lg:border-t-0"
-      aria-label={`${landingContent.location.mapLabel}, abrir mapa em nova aba`}
+      aria-label={`${t.location.mapLabel}, ${t.location.mapAriaSuffix}`}
     >
       <div className="relative z-10 grid place-items-center text-center">
         <span className="map-pin relative grid size-3 place-items-center rounded-full bg-[var(--brand-accent)]" />
@@ -97,7 +103,7 @@ export function MapContainer({ location }: { location: Location }) {
         </p>
       </div>
       <span className="type-eyebrow absolute bottom-[var(--space-5)] right-[var(--space-5)] inline-flex items-center gap-2 text-[var(--text-secondary)] transition-colors group-hover:text-[var(--brand-accent)]">
-        {landingContent.location.actions.directions}
+        {t.location.actions.directions}
         <ArrowUpRight aria-hidden="true" className="size-4" />
       </span>
     </a>
