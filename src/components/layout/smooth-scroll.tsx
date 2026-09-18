@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.1,
+      lerp: 0.06,
       smoothWheel: true,
       syncTouch: false,
     });
@@ -41,7 +41,11 @@ export function SmoothScroll() {
       if (!target) return;
 
       event.preventDefault();
-      lenis.scrollTo(target as HTMLElement, { offset: -headerOffset() - 16 });
+      lenis.scrollTo(target as HTMLElement, {
+        offset: -headerOffset() - 16,
+        duration: 1.4,
+        easing: (t: number) => 1 - Math.pow(1 - t, 3),
+      });
       window.history.replaceState(null, '', hash);
     };
 
