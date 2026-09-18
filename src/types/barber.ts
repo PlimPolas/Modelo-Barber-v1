@@ -8,6 +8,8 @@ export interface Barber {
   serviceIds: string[];
   locationIds: string[];
   primaryMediaId?: string;
+  /** Quando true, o card usa o avatar genérico de silhueta no lugar da foto. */
+  useAvatarPlaceholder?: boolean;
   secondaryMediaId?: string;
   bookingEnabled: boolean;
   active: boolean;
