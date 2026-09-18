@@ -9,10 +9,12 @@ import { useEffect } from 'react';
  */
 export function SmoothScroll() {
   useEffect(() => {
+    // lerp controla a desaceleração: ~0.09 a 60fps ≈ 550-650ms de decaimento
+    // exponencial perceptível após cada giro da roda.
     const lenis = new Lenis({
-      lerp: 0.025,
+      lerp: 0.09,
       smoothWheel: true,
-      wheelMultiplier: 1.15,
+      wheelMultiplier: 1.1,
       syncTouch: false,
     });
 
