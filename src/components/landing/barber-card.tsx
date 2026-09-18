@@ -14,12 +14,19 @@ export function BarberCard({ barber, media, actionPrefix }: BarberCardProps) {
   return (
     <article className="group min-w-0">
       <div className="overflow-hidden bg-[var(--surface)]">
-        <FocalImage
-          asset={media}
-          aspectRatio="4 / 5"
-          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-          imageClassName="motion-level-2 scale-[1.01] transition-transform group-hover:scale-[1.04]"
-        />
+        {barber.useAvatarPlaceholder ? (
+          <AvatarPlaceholder
+            label={barber.name}
+            imageClassName="motion-level-2 scale-[1.01] transition-transform group-hover:scale-[1.04]"
+          />
+        ) : (
+          <FocalImage
+            asset={media}
+            aspectRatio="4 / 5"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            imageClassName="motion-level-2 scale-[1.01] transition-transform group-hover:scale-[1.04]"
+          />
+        )}
       </div>
 
       <div className="mt-[var(--space-5)] border-t border-[var(--border-subtle)] pt-[var(--space-4)]">
