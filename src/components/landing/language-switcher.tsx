@@ -33,8 +33,8 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
             className={cn(
               'type-eyebrow motion-level-1 inline-flex min-h-9 items-center justify-center rounded-full px-[var(--space-2)] transition-colors sm:min-h-11 sm:px-[var(--space-3)]',
               active
-                ? 'border-[0.5px] border-[var(--brand-accent)] text-[var(--brand-accent)]'
-                : 'border-[0.5px] border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]',
+                ? 'shadow-[0_0_0_0.5px_var(--brand-accent)] text-[var(--brand-accent)]'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]',
             )}
           >
             {codeLabels[code]}
