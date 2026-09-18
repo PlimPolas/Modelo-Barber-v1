@@ -74,7 +74,7 @@ export function SiteNavbar({ brand, links, bookingLabel, menuLabel }: SiteNavbar
         </nav>
 
         <div className="flex items-center gap-[var(--space-2)]">
-          <LanguageSwitcher className="mr-[var(--space-1)] hidden sm:flex" />
+          <LanguageSwitcher />
           <ActionLink href="/booking" aria-label={bookingLabel} className="px-[var(--space-4)] sm:px-[var(--space-5)]">
             <span className="sm:hidden">{t.navigation.bookingLabelShort}</span>
             <span className="hidden sm:inline">{bookingLabel}</span>
