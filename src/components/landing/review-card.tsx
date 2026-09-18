@@ -7,6 +7,7 @@ interface ReviewCardProps {
   review: Review;
   locale: string;
   variant?: 'default' | 'featured';
+  ratingLabel: string;
 }
 
 function formatDate(review: Review, locale: string) {
@@ -17,9 +18,9 @@ function formatDate(review: Review, locale: string) {
     : null;
 }
 
-function Rating({ rating }: { rating: number }) {
+function Rating({ rating, ratingLabel }: { rating: number; ratingLabel: string }) {
   return (
-    <div className="flex gap-1 text-[var(--brand-accent)]" aria-label={`${rating} de 5 estrelas`}>
+    <div className="flex gap-1 text-[var(--brand-accent)]" aria-label={`${rating} ${ratingLabel}`}>
       {Array.from({ length: 5 }, (_, index) => (
         <Star key={index} aria-hidden="true" className="size-3.5" fill={index < rating ? 'currentColor' : 'none'} />
       ))}
@@ -27,7 +28,7 @@ function Rating({ rating }: { rating: number }) {
   );
 }
 
-export function ReviewCard({ review, locale, variant = 'default' }: ReviewCardProps) {
+export function ReviewCard({ review, locale, variant = 'default', ratingLabel }: ReviewCardProps) {
   const date = formatDate(review, locale);
   const meta = `${review.source}${date ? ` · ${date}` : ''}`;
 
@@ -43,7 +44,7 @@ export function ReviewCard({ review, locale, variant = 'default' }: ReviewCardPr
           </blockquote>
         </div>
         <footer>
-          <Rating rating={review.rating} />
+          <Rating rating={review.rating} ratingLabel={ratingLabel} />
           <p className="type-label mt-[var(--space-4)]">{review.authorName}</p>
           <p className="type-small mt-1 text-[var(--text-muted)]">{meta}</p>
         </footer>
@@ -59,7 +60,7 @@ export function ReviewCard({ review, locale, variant = 'default' }: ReviewCardPr
     >
       <blockquote className="type-body-large max-w-[38ch] text-[var(--text-primary)]">“{review.excerpt}”</blockquote>
       <footer className="flex flex-wrap items-center gap-x-[var(--space-4)] gap-y-2">
-        <Rating rating={review.rating} />
+        <Rating rating={review.rating} ratingLabel={ratingLabel} />
         <p className="type-label">{review.authorName}</p>
         <p className="type-small text-[var(--text-muted)]">{meta}</p>
       </footer>
