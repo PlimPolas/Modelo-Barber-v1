@@ -12,7 +12,7 @@ export const landingContent = {
   },
   hero: {
     eyebrow: 'Barbearia autoral · São Paulo',
-    title: 'Seu estilo, com intenção.',
+    title: 'SEU MELHOR CORTE COMEÇA AQUI.',
     description:
       'Cortes precisos, barba bem cuidada e uma experiência desenhada para você desacelerar.',
     primaryAction: 'Agendar horário',
@@ -28,7 +28,7 @@ export const landingContent = {
   ],
   services: {
     eyebrow: 'Serviços',
-    title: 'O essencial, executado com rigor.',
+    title: 'NOSSA TABELA DE PREÇOS\u00a0',
     description:
       'Cada atendimento começa com uma leitura rápida do seu estilo e termina com orientação para manter o resultado.',
     actionLabel: 'Escolher este serviço',
@@ -48,13 +48,13 @@ export const landingContent = {
   },
   team: {
     eyebrow: 'Equipe',
-    title: 'Pessoas que levam o ofício a sério.',
+    title: 'NOSSO TIME',
     description: 'Perfis diferentes, o mesmo padrão de cuidado e atenção ao detalhe.',
     actionPrefix: 'Agendar com',
   },
   gallery: {
     eyebrow: 'Dentro do Ateliê',
-    title: 'O ritmo, os detalhes, o resultado.',
+    title: 'GALERIA DA NOSSA LOJA',
     description: 'Uma visão do espaço e do trabalho em movimento.',
     mediaIds: [
       'media-gallery-chair',
@@ -67,7 +67,7 @@ export const landingContent = {
   },
   reviews: {
     eyebrow: 'Avaliações',
-    title: 'Confiança construída visita após visita.',
+    title: 'CONFIANÇA CONSTRUÍDA EM CADA VISITA.',
     description: 'Comentários demonstrativos que representam a experiência proposta para esta master.',
   },
   booking: {
@@ -81,7 +81,7 @@ export const landingContent = {
   },
   location: {
     eyebrow: 'Localização',
-    title: 'No centro, perto da sua rotina.',
+    title: 'NOSSA LOCALIZAÇÂO',
     description: 'Chegue alguns minutos antes e aproveite o começo da experiência com tranquilidade.',
     actions: {
       directions: 'Como chegar',
