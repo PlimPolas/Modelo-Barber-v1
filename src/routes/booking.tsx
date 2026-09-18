@@ -3,7 +3,8 @@ import { ArrowLeft, CalendarDays } from "lucide-react";
 
 import { PageContainer, SectionContainer } from "@/components/layout";
 import { Link } from "@/lib/app-link";
-import { brand, landingContent } from "@/data";
+import { brand } from "@/data";
+import { useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/booking")({
   head: () => ({
