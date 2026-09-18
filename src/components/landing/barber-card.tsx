@@ -10,9 +10,10 @@ interface BarberCardProps {
   barber: Barber;
   media: MediaAsset;
   actionPrefix: string;
+  specialtiesLabel: string;
 }
 
-export function BarberCard({ barber, media, actionPrefix }: BarberCardProps) {
+export function BarberCard({ barber, media, actionPrefix, specialtiesLabel }: BarberCardProps) {
   return (
     <article className="group min-w-0">
       <div className="overflow-hidden bg-[var(--surface)]">
@@ -50,7 +51,7 @@ export function BarberCard({ barber, media, actionPrefix }: BarberCardProps) {
 
         <ul
           className="type-small mt-[var(--space-4)] flex flex-wrap items-center gap-x-[var(--space-3)] gap-y-1 text-[var(--text-muted)]"
-          aria-label={`Especialidades de ${barber.name}`}
+          aria-label={`${specialtiesLabel} ${barber.name}`}
         >
           {barber.specialties.map((specialty, index) => (
             <li key={specialty} className="flex items-center gap-[var(--space-3)]">

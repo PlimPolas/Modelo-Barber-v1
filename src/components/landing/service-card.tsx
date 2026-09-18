@@ -7,10 +7,11 @@ interface ServiceCardProps {
   service: Service;
   actionLabel: string;
   featuredLabel: string;
+  minutesSuffix: string;
   locale: string;
 }
 
-export function ServiceCard({ service, actionLabel, featuredLabel, locale }: ServiceCardProps) {
+export function ServiceCard({ service, actionLabel, featuredLabel, minutesSuffix, locale }: ServiceCardProps) {
   const price = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: service.currency,
@@ -28,7 +29,7 @@ export function ServiceCard({ service, actionLabel, featuredLabel, locale }: Ser
         <div className="mt-[var(--space-3)] flex flex-wrap items-center gap-x-[var(--space-3)] gap-y-1">
           <span className="type-eyebrow text-[var(--text-muted)]">{service.category}</span>
           <span aria-hidden="true" className="h-3 w-px bg-[var(--border-subtle)]" />
-          <span className="type-eyebrow text-[var(--text-muted)]">{service.durationMinutes} min</span>
+          <span className="type-eyebrow text-[var(--text-muted)]">{service.durationMinutes} {minutesSuffix}</span>
           {service.featured ? (
             <>
               <span aria-hidden="true" className="h-3 w-px bg-[var(--border-subtle)]" />
