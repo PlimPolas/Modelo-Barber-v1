@@ -185,10 +185,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .gallery-track,
-  .gallery-track[data-direction='reverse'] {
-    animation: none;
-    transform: none;
-  }
-}
