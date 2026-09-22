@@ -22,3 +22,122 @@
   transition-timing-function: var(--motion-ease-standard);
 }
 
+
+/* Abertura da marca (preloader) */
+:root {
+  --hero-delay-base: 1.15s;
+}
+
+@keyframes brand-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes brand-glow-pulse {
+  0% {
+    opacity: 0.15;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 0.15;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes brand-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes preloader-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.brand-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--background-primary, #0b0c0c);
+}
+
+.brand-preloader[data-state='leaving'] {
+  animation: preloader-out 520ms var(--motion-ease-standard) forwards;
+}
+
+.brand-preloader__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  animation: brand-mark-in 620ms var(--motion-ease-standard) both;
+}
+
+.brand-preloader__glow {
+  position: absolute;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand-accent) 28%, transparent) 0%, transparent 68%);
+  animation: brand-glow-pulse 2s var(--motion-ease-standard) infinite;
+  pointer-events: none;
+}
+
+.brand-preloader__ring {
+  position: absolute;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--brand-accent) 16%, transparent);
+  border-top-color: var(--brand-accent);
+  animation: brand-ring-spin 1.4s linear infinite;
+  pointer-events: none;
+}
+
+.hero-enter {
+  animation: fade-rise 700ms var(--motion-ease-standard) both;
+  animation-delay: calc(var(--hero-delay-base) + var(--hero-delay-step, 0ms));
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-media-in {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-media-enter {
+  animation: hero-media-in 1400ms var(--motion-ease-standard) both;
+  animation-delay: var(--hero-delay-base);
+}
