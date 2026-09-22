@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { BrandPreloader } from "../components/layout/brand-preloader";
 import { SmoothScroll } from "../components/layout/smooth-scroll";
 import { LanguageProvider } from "../i18n";
 import appCss from "../styles.css?url";
@@ -143,6 +144,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        <BrandPreloader />
         <SmoothScroll />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />

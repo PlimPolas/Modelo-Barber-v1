@@ -7,6 +7,7 @@ import {
   MessageCircle,
   Phone,
 } from 'lucide-react';
+import type React from 'react';
 import { Link } from '@/lib/app-link';
 
 import { ActionLink } from '@/components/actions';
@@ -35,7 +36,7 @@ function Hero({ asset, t }: { asset: MediaAsset; t: Dictionary }) {
 
   return (
     <section id="inicio" className="landing-anchor relative min-h-[100svh] overflow-hidden bg-[var(--background-primary)]">
-      <div className="hero-media absolute inset-0">
+      <div className="hero-media hero-media-enter absolute inset-0">
         <FocalImage
           asset={asset}
           aspectRatio="auto"
@@ -47,15 +48,15 @@ function Hero({ asset, t }: { asset: MediaAsset; t: Dictionary }) {
       </div>
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[var(--container-wide)] items-end px-[var(--page-gutter)] pb-[var(--space-9)] pt-[calc(var(--landing-header-height)+var(--space-8))] md:pb-[var(--space-11)]">
         <div className="max-w-[46rem]">
-          <div className="flex items-center gap-[var(--space-4)]">
+          <div className="hero-enter flex items-center gap-[var(--space-4)]">
             <span aria-hidden="true" className="hero-rule" />
             <p className="type-eyebrow text-[var(--brand-accent)]">{content.eyebrow}</p>
           </div>
-          <h1 className="type-display-xl mt-[var(--space-5)] max-w-[10ch]">{content.title}</h1>
-          <p className="type-body-large mt-[var(--space-6)] max-w-[34rem] text-[var(--text-secondary)]">
+          <h1 className="hero-enter type-display-xl mt-[var(--space-5)] max-w-[10ch]" style={{ "--hero-delay-step": "140ms" } as React.CSSProperties}>{content.title}</h1>
+          <p className="hero-enter type-body-large mt-[var(--space-6)] max-w-[34rem] text-[var(--text-secondary)]" style={{ "--hero-delay-step": "280ms" } as React.CSSProperties}>
             {content.description}
           </p>
-          <div className="mt-[var(--space-7)] flex flex-col gap-[var(--space-3)] sm:flex-row sm:items-center">
+          <div className="hero-enter mt-[var(--space-7)] flex flex-col gap-[var(--space-3)] sm:flex-row sm:items-center" style={{ "--hero-delay-step": "420ms" } as React.CSSProperties}>
             <ActionLink href="/booking" size="large">
               {content.primaryAction}
               <ArrowRight aria-hidden="true" />
