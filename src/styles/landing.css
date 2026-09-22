@@ -47,6 +47,7 @@
 .gallery-viewport {
   width: 100%;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .gallery-track {
@@ -66,9 +67,6 @@
   animation-play-state: paused;
 }
 
-.gallery-track:hover {
-  animation-duration: calc(var(--gallery-count, 10) * var(--gallery-pace) * 2.5);
-}
 
 .gallery-item {
   width: calc(var(--gallery-height) * 0.8);
